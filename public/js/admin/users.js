@@ -1,5 +1,5 @@
 const usersTable = $('#usersTable');
-const dataUrl = $('#usersTable').data('get-url');
+const dataUrl = usersTable.data('get-url');
 const userCreateBtn = $('#userCreateBtn')
 const userFormModal = new bootstrap.Modal(document.getElementById('userFormModal'))
 const deleteUserModal = new bootstrap.Modal(document.getElementById('deleteUserModal'))

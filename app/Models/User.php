@@ -64,6 +64,13 @@ class User extends Authenticatable
         'name'
     ];
 
+    // Relationships
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
+
+    // Accessors
     public function getIsAdminAttribute() {
         return $this->hasRole(RoleEnum::ADMIN);
     }

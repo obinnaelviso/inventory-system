@@ -19,7 +19,7 @@ class AuthorizeUser
     public function handle(Request $request, Closure $next)
     {
         if (! $request->user()->is_user) {
-            return redirect()->route(RouteServiceProvider::HOME);
+            return redirect(RouteServiceProvider::ADMIN_HOME);
         }
         return $next($request);
     }

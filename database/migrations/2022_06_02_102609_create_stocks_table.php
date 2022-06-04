@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->string('name')->nullable();
             $table->string('receipt_no')->nullable();
             $table->foreignId('status_id')->constrained();

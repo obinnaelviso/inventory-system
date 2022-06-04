@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Request;
+use App\Models\User;
 
 class RequestService {
 
@@ -10,8 +11,16 @@ class RequestService {
 
     }
 
-    public function getRequests(int $size = 25) {
+    public function getAll(int $size = 25) {
         $requests = Request::latest()->paginate($size);
         return $requests;
+    }
+
+    public function create(User $user, array $data) {
+        return $user->requests()->create($data);
+    }
+
+    public function update(Request $request, array $data) {
+        return $request->update($data);
     }
 }

@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Manila',
 
     /*
     |--------------------------------------------------------------------------
@@ -214,6 +214,8 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'RequestStep' => App\Enums\RequestStep::class,
+        'StockStep' => App\Enums\StockStep::class,
     ])->toArray(),
 
 ];
