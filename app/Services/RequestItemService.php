@@ -16,7 +16,7 @@ class RequestItemService {
             })
             ->addColumn('action', function($requestItem) {
                 $editBtn = "<button class='btn btn-info btn-sm' data-bs-toggle='modal' data-bs-target='#requestItemFormModal' onclick='editRequestItem({$requestItem->id});'>Edit</button>";
-                $deleteBtn = "<button class='btn btn-danger btn-sm' onclick='deleteRequestItem({$requestItem->id});'>Delete</button>";
+                $deleteBtn = "<button class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#requestItemDeleteModal' onclick='deleteRequestItem({$requestItem->id});'>Delete</button>";
                 return "{$editBtn} {$deleteBtn}";
             })
             ->addIndexColumn()
@@ -29,5 +29,9 @@ class RequestItemService {
 
     public function update(RequestItem $requestItem, array $data) {
         return $requestItem->update($data);
+    }
+
+    public function delete(RequestItem $requestItem) {
+        $requestItem->delete();
     }
 }

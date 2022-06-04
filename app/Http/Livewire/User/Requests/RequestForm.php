@@ -14,7 +14,7 @@ class RequestForm extends Component
     public $date;
     public $request;
 
-    protected $listeners = ['updateRequest'];
+    protected $listeners = ['updateRequest', 'editRequest'];
 
     protected $rules = [
         'name' => 'required',
@@ -25,6 +25,14 @@ class RequestForm extends Component
     public function render()
     {
         return view('livewire.user.requests.request-form');
+    }
+
+    public function editRequest(Request $request)
+    {
+        $this->request = $request;
+        $this->name = $request->name;
+        $this->dept = $request->dept;
+        $this->date = $request->date;
     }
 
     public function submitForm(RequestService $requestService) {

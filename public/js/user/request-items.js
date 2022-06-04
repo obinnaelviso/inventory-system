@@ -1,5 +1,4 @@
-var requestItemsDataTable;
-var requestItemFormModal;
+var requestItemsDataTable, requestItemFormModal, requestItemDeleteModal, currentRequestItemId;
 // Add Request Item
 function addRequestItem() {
     $('#requestItemFormModalTitle').html('Add Item')
@@ -13,14 +12,19 @@ function editRequestItem(id) {
 }
 
 function deleteRequestItem (id) {
-    currentUserId = id
-    deleteRequestItemModal.show();
+    currentRequestItemId = id
+}
+
+function confirmRequestItemDelete() {
+    Livewire.emit('deleteRequestItem', currentRequestItemId)
 }
 
 function initializeTable () {
     const requestItemsDataUrl = $('.table').data('get-url');
-    requestItemFormModal = new bootstrap.Modal(document.getElementById('requestItemFormModal'))
-    return $('.table').DataTable({
+    requestItemFormModal = $('#requestItemFormModal').length ? new bootstrap.Modal(document.getElementById('requestItemFormModal')) : null
+    requestItemDeleteModal = $('#requestItemDeleteModal').length ? new bootstrap.Modal(document.getElementById('requestItemDeleteModal')) : null
+
+    requestItemsDataTable = $('.table').DataTable({
         serverSide: true,
         processing: true,
         ajax: {
@@ -45,7 +49,7 @@ function initializeTable () {
     })
 }
 $(() => {
-    requestItemsDataTable = initializeTable();
+    initializeTable();
     // Listen to livewire request item events
     Livewire.on('requestItemCreated', () => {
         requestItemsDataTable.ajax.reload()
@@ -54,8 +58,12 @@ $(() => {
         requestItemsDataTable.ajax.reload()
         requestItemFormModal.hide()
     })
+    Livewire.on('requestItemDeleted', () => {
+        requestItemsDataTable.ajax.reload()
+        requestItemDeleteModal.hide()
+    })
 
     window.addEventListener('intialize-table', () => {
-        requestItemsDataTable = initializeTable();
+        initializeTable();
     })
 })

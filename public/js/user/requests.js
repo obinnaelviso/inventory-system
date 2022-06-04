@@ -1,6 +1,7 @@
 const dateOptions = {
     'format' : 'mm/dd/yyyy'
 }
+var currentRequestId;
 const requestCreateBtn = $('.requestCreateBtn')
 const requestDateInput = document.getElementById('requestDate')
 const requestDateDp = new Datepicker(requestDateInput, dateOptions)
@@ -12,10 +13,30 @@ function changeDate() {
 }
 
 function gotoRequest(id) {
-    Livewire.emit('selectedRequest', id)    
+    Livewire.emit('selectedRequest', id)
+}
+
+function openDeleteRequestModal(id) {
+    currentRequestId = id
+    deleteRequestModal.show()
+}
+
+function editRequest(id) {
+    $('#requestFormModalTitle').html('Update Request')
+    Livewire.emit('editRequest', id)
+    requestFormModal.show()
+}
+
+function deleteRequest() {
+    Livewire.emit('deleteRequest', currentRequestId)
 }
 
 $(() => {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
     requestCreateBtn.on('click', () => {
         $('#requestFormModalTitle').html('Create New Request')
         requestFormModal.show();
@@ -31,5 +52,8 @@ $(() => {
     })
     Livewire.on('requestUpdated', () => {
         requestFormModal.hide()
+    })
+    Livewire.on('requestDeleted', () => {
+        deleteRequestModal.hide()
     })
 })

@@ -23,4 +23,8 @@ class RequestService {
     public function update(Request $request, array $data) {
         return $request->update($data);
     }
+
+    public function delete(Request $request) {
+        $request->delete();
+    }
 }

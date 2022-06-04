@@ -24,7 +24,7 @@ class ListRequestItemsForm extends Component
         'unit' => 'nullable|string',
     ];
 
-    protected $listeners = ['newRequestItem', 'editRequestItem'];
+    protected $listeners = ['newRequestItem', 'editRequestItem', 'deleteRequestItem'];
 
     public function render()
     {
@@ -66,5 +66,11 @@ class ListRequestItemsForm extends Component
         $this->description = $requestItem->description;
         $this->qty = $requestItem->qty;
         $this->unit = $requestItem->unit;
+    }
+
+    public function deleteRequestItem(RequestItem $requestItem, RequestItemService $requestItemService)
+    {
+        $requestItemService->delete($requestItem);
+        $this->emit('requestItemDeleted');
     }
 }
