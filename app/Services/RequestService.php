@@ -27,4 +27,14 @@ class RequestService {
     public function delete(Request $request) {
         $request->delete();
     }
+
+    public function updateStatus($requestId, $statusId) {
+        $request = Request::find($requestId);
+        $request->status_id = $statusId;
+        $request->save();
+
+        return $request;
+
+        // TODO: send email to user
+    }
 }

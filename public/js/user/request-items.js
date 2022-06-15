@@ -1,8 +1,13 @@
-var requestItemsDataTable, requestItemFormModal, requestItemDeleteModal, currentRequestItemId;
+var requestItemsDataTable, requestItemFormModal, requestItemDeleteModal, currentRequestItemId, submitRequestModal;
 // Add Request Item
 function addRequestItem() {
     $('#requestItemFormModalTitle').html('Add Item')
     Livewire.emit('newRequestItem')
+}
+
+// Submit Request
+function submitRequest() {
+    Livewire.emit('submitRequest')
 }
 
 // Edit Request Item
@@ -20,13 +25,15 @@ function confirmRequestItemDelete() {
 }
 
 function initializeTable () {
-    const requestItemsDataUrl = $('.table').data('get-url');
+    const requestItemsDataUrl = $('#requestItemsTable').data('get-url');
     requestItemFormModal = $('#requestItemFormModal').length ? new bootstrap.Modal(document.getElementById('requestItemFormModal')) : null
     requestItemDeleteModal = $('#requestItemDeleteModal').length ? new bootstrap.Modal(document.getElementById('requestItemDeleteModal')) : null
+    submitRequestModal = $('#submitRequestModal').length ? new bootstrap.Modal(document.getElementById('submitRequestModal')) : null
 
-    requestItemsDataTable = $('.table').DataTable({
+    requestItemsDataTable = $('#requestItemsTable').DataTable({
         serverSide: true,
         processing: true,
+        retrieve: true,
         ajax: {
             url: requestItemsDataUrl,
             type: 'POST',
@@ -62,8 +69,12 @@ $(() => {
         requestItemsDataTable.ajax.reload()
         requestItemDeleteModal.hide()
     })
+    Livewire.on('requestStatusUpdated', () => {
+        submitRequestModal.hide()
+    })
 
-    window.addEventListener('intialize-table', () => {
+    window.addEventListener('initialize-table', () => {
         initializeTable();
+        console.log('parapapa')
     })
 })

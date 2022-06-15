@@ -16,9 +16,16 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#requestItemFormModal" onclick="addRequestItem()">
-                                <i class="bx bx-plus-circle"></i> Add New Item
-                            </button>
+                            {{-- @if($request->status_id != status_pending_id()) --}}
+                                <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#requestItemFormModal" onclick="addRequestItem()">
+                                    <i class="bx bx-plus-circle"></i> Add New Item
+                                </button>
+                                <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#submitRequestModal">
+                                    <i class="bx bx-check-circle"></i> Submit Request
+                                </button>
+                            {{-- @else --}}
+                                <span class="text-success"> <i class="bx bx-check"></i> Request Submitted</span>
+                            {{-- @endif --}}
                         </div>
                     </div>
                 </div>
@@ -73,6 +80,23 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Not yet</button>
                     <button type="button" class="btn btn-danger btn-sm" id="modalDeleteBtn" onclick="confirmRequestItemDelete();">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="submitRequestModal" tabindex="-1" aria-labelledby="submitRequestModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="submitRequestModalTitle">Submit Request</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to submit this request?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Not yet</button>
+                    <button type="button" class="btn btn-success btn-sm" id="modalSubmitBtn" onclick="submitRequest();">Yes</button>
                 </div>
             </div>
         </div>

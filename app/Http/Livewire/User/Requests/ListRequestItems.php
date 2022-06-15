@@ -12,10 +12,16 @@ class ListRequestItems extends Component
     public $request;
 
     public $listeners = [
-        'initializeTable' => '$refresh'
+        'initializeTable' => '$refresh',
+        'requestStatusUpdated'
     ];
 
     public function mount(Request $request)
+    {
+        $this->request = $request;
+    }
+
+    public function requestStatusUpdated(Request $request)
     {
         $this->request = $request;
     }

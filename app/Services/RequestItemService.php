@@ -7,8 +7,8 @@ use App\Models\RequestItem;
 
 class RequestItemService {
 
-    public function getAll() {
-        $requestItems = RequestItem::query();
+    public function getAll(Request $request) {
+        $requestItems = $request->requestItems;
 
         return datatables($requestItems)
             ->addColumn('created_at', function($requestItem) {

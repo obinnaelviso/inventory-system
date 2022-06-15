@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\User\Requests;
 
 use App\Enums\RequestStep;
+use App\Services\RequestService;
 use Livewire\Component;
 
 class Index extends Component
@@ -18,7 +19,8 @@ class Index extends Component
     ];
 
     public $listeners = [
-        'selectedRequest'
+        'selectedRequest',
+        'submitRequest'
     ];
 
     public function render()
@@ -30,6 +32,14 @@ class Index extends Component
     {
         $this->r = $r;
         $this->step = RequestStep::LIST_REQUEST_ITEMS;
-        $this->dispatchBrowserEvent('intialize-table');
+        $this->dispatchBrowserEvent('initialize-table');
+    }
+
+    public function submitRequest(RequestService $requestService)
+    {
+        $requestService->updateStatus($this->r, status_pending_id());
+        // $this->r = $request->id;
+        $this->dispatchBrowserEvent('initialize-table');
+        // $this->emitUp('requestStatusUpdated', $request);
     }
 }
