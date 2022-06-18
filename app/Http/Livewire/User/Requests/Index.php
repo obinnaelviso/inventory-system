@@ -37,9 +37,9 @@ class Index extends Component
 
     public function submitRequest(RequestService $requestService)
     {
-        $requestService->updateStatus($this->r, status_pending_id());
-        // $this->r = $request->id;
-        $this->dispatchBrowserEvent('initialize-table');
-        // $this->emitUp('requestStatusUpdated', $request);
+        $requestService->updateStatus($this->r, status_processing_id());
+        $this->r = null;
+        $this->step = RequestStep::LIST_REQUESTS;
+        $this->emit('requestStatusUpdated');
     }
 }

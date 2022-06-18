@@ -75,6 +75,5 @@ $(() => {
 
     window.addEventListener('initialize-table', () => {
         initializeTable();
-        console.log('parapapa')
     })
 })

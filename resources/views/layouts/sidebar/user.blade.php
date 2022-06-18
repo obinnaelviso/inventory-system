@@ -16,7 +16,7 @@
     <a href="{{ route('user.stocks.index') }}">
         <div class="parent-icon"><i class='bx bx-coin-stack'></i>
         </div>
-        <div class="menu-title">Stocks</div>
+        <div class="menu-title">New Stocks</div>
     </a>
 </li>
 <li>

@@ -5,11 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Status extends Model
+class Product extends Model
 {
     use HasFactory;
 
-    public function getColourAttribute() {
-        return explode(',', $this->attributes['colour']);
-    }
+    protected $guarded = [];
 }

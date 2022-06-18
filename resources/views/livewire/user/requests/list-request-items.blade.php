@@ -16,16 +16,16 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            {{-- @if($request->status_id != status_pending_id()) --}}
+                            @if($request->status_id != status_processing_id())
                                 <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#requestItemFormModal" onclick="addRequestItem()">
                                     <i class="bx bx-plus-circle"></i> Add New Item
                                 </button>
                                 <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#submitRequestModal">
                                     <i class="bx bx-check-circle"></i> Submit Request
                                 </button>
-                            {{-- @else --}}
-                                <span class="text-success"> <i class="bx bx-check"></i> Request Submitted</span>
-                            {{-- @endif --}}
+                            @else
+                                <span class="text-{{ $request->status->colour[0] }}"> <i class="bx bx-check"></i> Request Submitted</span>
+                            @endif
                         </div>
                     </div>
                 </div>

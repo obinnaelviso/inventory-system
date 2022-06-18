@@ -13,18 +13,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-primary ms-auto">
-                            <i class="bx bx-message-error font-35"></i>
-                            <div class="row">
-                                <div class="col-12 text-end mb-0 font-18">
-                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Request" class="text-info" onclick="editRequest({{ $request->id }})">
-                                        <i class="bx bx-edit"></i>
-                                    </a>
-                                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete Request" class="text-danger" onclick="openDeleteRequestModal({{ $request->id }})">
-                                        <i class="bx bx-trash"></i>
-                                    </a>
+                        <div class="text-{{ $request->status->colour[0] }} ms-auto">
+                            @if($request->status_id == status_processing_id())
+                                <i class="bx bx-check-circle font-35"></i>
+                            @else
+                                <i class="bx bx-message-error font-35"></i>
+                            @endif
+                            @if ($request->status_id == status_pending_id())
+                                <div class="row">
+                                    <div class="col-12 text-end mb-0 font-18">
+                                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Edit Request" class="text-info" onclick="editRequest({{ $request->id }})">
+                                            <i class="bx bx-edit"></i>
+                                        </a>
+                                        <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Delete Request" class="text-danger" onclick="openDeleteRequestModal({{ $request->id }})">
+                                            <i class="bx bx-trash"></i>
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

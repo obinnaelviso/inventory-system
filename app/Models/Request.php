@@ -24,4 +24,7 @@ class Request extends Model
     public function requestItems() {
         return $this->hasMany(RequestItem::class);
     }
+    public function status() {
+        return $this->belongsTo(Status::class);
+    }
 }

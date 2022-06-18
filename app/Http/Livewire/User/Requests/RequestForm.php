@@ -41,7 +41,7 @@ class RequestForm extends Component
             $requestService->update($this->request, $validatedData);
             $this->emit('requestUpdated');
         } else {
-            $requestService->create(auth()->user(), $validatedData + ['status_id' => status_active_id()]);
+            $requestService->create(auth()->user(), $validatedData + ['status_id' => status_pending_id()]);
             $this->emit('requestCreated');
         }
         $this->resetInput();

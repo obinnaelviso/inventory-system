@@ -19,6 +19,6 @@ Route::prefix('stocks')->group(function() {
     Route::get('/', [StocksController::class, 'index'])->name('stocks.index');
 });
 
-Route::prefix('products')->group(function() {
-    Route::get('/', [StocksController::class, 'index'])->name('products.index');
-});
+// Route::prefix('products')->group(function() {
+//     Route::get('/', [StocksController::class, 'index'])->name('products.index');
+// });

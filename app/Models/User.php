@@ -69,6 +69,13 @@ class User extends Authenticatable
     {
         return $this->hasMany(Request::class);
     }
+    public function stocks() {
+        return $this->hasMany(Stock::class);
+    }
+
+    public function products() {
+        return $this->hasMany(Product::class);
+    }
 
     // Accessors
     public function getIsAdminAttribute() {

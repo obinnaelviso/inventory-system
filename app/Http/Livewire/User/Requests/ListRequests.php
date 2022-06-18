@@ -11,6 +11,7 @@ class ListRequests extends Component
     protected $listeners = [
         'requestCreated' => '$refresh',
         'requestUpdated' => '$refresh',
+        'requestStatusUpdated' => '$refresh',
         'deleteRequest'
     ];
     public function render()
