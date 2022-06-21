@@ -25,6 +25,6 @@ class ListRequests extends Component
     }
 
     public function getRequestsProperty(RequestService $requestService) {
-        return $requestService->getAll();
+        return $requestService->getAll(auth()->user());
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\Admin\StocksController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PurchasingController;
+use App\Http\Controllers\Admin\RequestsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -17,6 +18,13 @@ Route::prefix('users')->group(function() {
 
 Route::prefix('purchasing')->group(function() {
     Route::get('/', [PurchasingController::class, 'index'])->name('purchasing.index');
+});
+
+Route::prefix('requests')->group(function() {
+    Route::get('/', [RequestsController::class, 'index'])->name('requests.index');
+    Route::post('/data', [RequestsController::class, 'data'])->name('requests.data');
+    Route::get('/{request}', [RequestsController::class, 'items'])->name('requests.items');
+    Route::post('/{request}/items', [RequestsController::class, 'itemsData'])->name('requests.items-data');
 });
 
 Route::prefix('stocks')->group(function() {

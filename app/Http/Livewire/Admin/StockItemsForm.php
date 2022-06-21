@@ -27,7 +27,6 @@ class StockItemsForm extends Component
     ];
 
     protected $listeners = [
-        'updateStockItem',
         'editStockItem',
         'newStockItem' => 'resetInput',
         'deleteStockItem',
@@ -80,7 +79,7 @@ class StockItemsForm extends Component
     }
 
     public function addItemToProducts(StockItem $stockItem, StockItemService $stockItemService, ProductService $productService) {
-        $productService->create([
+        $productService->create(auth()->user(), [
             'item' => $stockItem->item,
             'description' => $stockItem->description,
             'qty' => $stockItem->qty,

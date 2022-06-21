@@ -6,6 +6,14 @@
     </a>
 </li>
 <li>
+    <a href="{{ route('admin.requests.index') }}">
+        <div class="parent-icon">
+            <i class='bx bx-message-error'></i>
+        </div>
+        <div class="menu-title">New Requests</div>
+    </a>
+</li>
+<li>
     <a href="{{ route('admin.stocks.index') }}">
         <div class="parent-icon">
             <i class='bx bx-coin-stack'></i>

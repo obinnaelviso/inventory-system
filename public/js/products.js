@@ -1,39 +1,32 @@
-var productsDataTable, productFormModal, productDeleteModal, currentproductId, submitRequestModal;
-// Add Request Item
-function addproduct() {
+var productsDataTable, productFormModal, productDeleteModal, currentProductId, submitRequestModal;
+// Add Product
+function addProduct() {
     $('#productFormModalTitle').html('Add Item')
     Livewire.emit('newproduct')
 }
 
-// Submit Request
-function submitRequest() {
-    Livewire.emit('submitRequest')
-}
-
-// Edit Request Item
-function editproduct(id) {
+// Edit Product
+function editProduct(id) {
     $('#productFormModalTitle').html('Update Item')
-    Livewire.emit('editproduct', id)
+    Livewire.emit('editProduct', id)
 }
 
-function deleteproduct (id) {
-    currentproductId = id
+function selectItem(id) {
+    currentProductId = id
 }
 
-function confirmproductDelete() {
-    Livewire.emit('deleteproduct', currentproductId)
+function deleteProduct() {
+    Livewire.emit('deleteProduct', currentProductId)
 }
 
 function initializeTable () {
     const productsDataUrl = $('#productsTable').data('get-url');
-    productFormModal = $('#productFormModal').length ? new bootstrap.Modal(document.getElementById('productFormModal')) : null
-    productDeleteModal = $('#productDeleteModal').length ? new bootstrap.Modal(document.getElementById('productDeleteModal')) : null
-    submitRequestModal = $('#submitRequestModal').length ? new bootstrap.Modal(document.getElementById('submitRequestModal')) : null
+    productFormModal = new bootstrap.Modal(document.getElementById('productFormModal'))
+    productDeleteModal = new bootstrap.Modal(document.getElementById('productDeleteModal'))
 
     productsDataTable = $('#productsTable').DataTable({
         serverSide: true,
         processing: true,
-        retrieve: true,
         ajax: {
             url: productsDataUrl,
             type: 'POST',
@@ -69,9 +62,6 @@ $(() => {
     Livewire.on('productDeleted', () => {
         productsDataTable.ajax.reload()
         productDeleteModal.hide()
-    })
-    Livewire.on('requestStatusUpdated', () => {
-        submitRequestModal.hide()
     })
 
     window.addEventListener('initialize-table', () => {

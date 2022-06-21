@@ -62,7 +62,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Not yet</button>
-                    <button type="button" class="btn btn-danger btn-sm" id="modalDeleteBtn" onclick="processDeleteUser();">Delete</button>
+                    <button type="button" class="btn btn-danger btn-sm" id="modalDeleteBtn" onclick="deleteRequest();">Delete</button>
                 </div>
             </div>
         </div>
