@@ -32,9 +32,13 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function search(Request $request)
     {
-        //
+        if ($request->expectsJson()) {
+            return response()->json([
+                'data' => $this->productService->search($request->q)
+            ]);
+        }
     }
 
     /**

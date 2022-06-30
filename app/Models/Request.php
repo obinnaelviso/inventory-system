@@ -27,4 +27,8 @@ class Request extends Model
     public function status() {
         return $this->belongsTo(Status::class);
     }
+
+    public function getIsCompletedAttribute() {
+        return $this->status_id == status_completed_id();
+    }
 }

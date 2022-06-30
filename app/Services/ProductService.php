@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Product;
+use App\Models\RequestItem;
+use App\Models\StockItem;
 use App\Models\User;
 
 class ProductService {
@@ -27,6 +29,10 @@ class ProductService {
             ->toJson();
     }
 
+    public function getItem($name) {
+        return Product::where('item', $name)->first();
+    }
+
     public function create(User $user, array $data) {
         $user->products()->create($data);
     }
@@ -37,6 +43,36 @@ class ProductService {
 
     public function delete(Product $product) {
         $product->delete();
+    }
+
+    public function search($query) {
+        return Product::where('item', 'like', "%{$query}%")->get();
+    }
+
+    public function updateFromStocks(StockItem $stockItem) {
+        $product = $this->getItem($stockItem->item);
+        if ($product) {
+            $this->update($product, ['qty' => $product->qty + $stockItem->qty]);
+        } else {
+            $this->create(auth()->user(), [
+                'item' => $stockItem->item,
+                'description' => $stockItem->description,
+                'qty' => $stockItem->qty,
+                'unit' => $stockItem->unit,
+                'category' => $stockItem->category,
+                'status_id' => status_active_id()
+            ]);
+        }
+    }
+
+    public function updateFromRequests(RequestItem $requestItem): bool {
+        $product = $this->getItem($requestItem->item);
+        if ($product && ($product->qty >= $requestItem->qty)) {
+            $this->update($product, ['qty' => $product->qty - $requestItem->qty]);
+            return true;
+        } else {
+            return false;
+        }
     }
 }
 

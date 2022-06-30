@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Request;
+use App\Models\Unit;
 use App\Services\RequestItemService;
 use App\Services\RequestService;
 use Illuminate\Http\Request as HttpRequest;
@@ -30,10 +31,16 @@ class RequestsController extends Controller
     }
 
     public function items(Request $request) {
-        return view('admin.requests.items', compact('request'));
+        $units = Unit::all();
+        return view('admin.requests.items', compact('request', 'units'));
     }
 
     public function itemsData(Request $request) {
         return $this->requestItemService->getAll($request);
+    }
+
+    public function generateReport(Request $request) {
+        $items = $request->requestItems()->pending()->get();
+        return view('admin.requests.generate-report', compact('request', 'items'));
     }
 }

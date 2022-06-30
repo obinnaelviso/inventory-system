@@ -13,7 +13,7 @@ class RequestsForm extends Component
     public $date;
     public $request;
 
-    protected $listeners = ['updateRequest', 'editRequest', 'deleteRequest'];
+    protected $listeners = ['updateRequest', 'editRequest', 'deleteRequest', 'markAsCompleted'];
 
     protected $rules = [
         'name' => 'required',
@@ -55,5 +55,10 @@ class RequestsForm extends Component
     public function deleteRequest(Request $request, RequestService $requestService) {
         $requestService->delete($request);
         $this->emit('requestDeleted');
+    }
+
+    public function markAsCompleted(Request $request, RequestService $requestService) {
+        $requestService->update($request, ['status_id' => status_completed_id()]);
+        $this->emit('requestCompleted');
     }
 }

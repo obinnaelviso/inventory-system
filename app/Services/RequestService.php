@@ -12,7 +12,7 @@ class RequestService {
     }
 
     public function getAll(User $user, int $size = 25) {
-        $requests = $user->request()->latest()->paginate($size);
+        $requests = $user->requests()->latest()->paginate($size);
         return $requests;
     }
 
@@ -31,7 +31,8 @@ class RequestService {
                 $viewBtn = "<a href='/admin/requests/{$request->id}' class='btn btn-info btn-sm' onclick='selectRequest({$request->id});' title='View Items'><i class='bx bx-show me-0'></i></a>";
                 $editBtn = "<button class='btn btn-warning btn-sm' data-bs-toggle='modal' data-bs-target='#requestFormModal' onclick='editRequest({$request->id});' title='Edit'><i class='bx bx-edit me-0'></i></button>";
                 $deleteBtn = "<button class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#requestDeleteModal' onclick='selectRequest({$request->id});' title='Delete'><i class='bx bx-trash me-0'></i></button>";
-                return "{$viewBtn} {$markCompleteBtn} {$editBtn} {$deleteBtn}";
+                $reportBtn = "<a href='/admin/requests/{$request->id}/generate-report' class='btn btn-primary btn-sm' title='Generate Report' target='_blank'><i class='bx bx-file me-0'></i></a>";
+                return "{$reportBtn} {$viewBtn} {$markCompleteBtn} {$editBtn} {$deleteBtn}";
             })
             ->rawColumns(['action', 'status'])
             ->toJson();

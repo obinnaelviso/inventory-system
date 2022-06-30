@@ -12,7 +12,7 @@ class StockService {
     }
 
     public function getAll() {
-        $stocks = Stock::query();
+        $stocks = auth()->user()->is_admin ? Stock::query() : auth()->user()->stocks;
 
         return datatables($stocks)
             ->addColumn('user', function($stock) {
@@ -22,9 +22,10 @@ class StockService {
                 return $stock->url;
             })
             ->addColumn('action', function($stock) {
-                $viewBtn = "<a class='btn btn-primary btn-sm' href='/admin/stocks/{$stock->id}'>View</a>";
+                $urlPrefix = auth()->user()->is_admin ? "/admin" : "";
+                $viewBtn = "<a class='btn btn-primary btn-sm' href='{$urlPrefix}/stocks/{$stock->id}'>View</a>";
                 $editBtn = "<button class='btn btn-info btn-sm' data-bs-toggle='modal' data-bs-target='#stockFormModal' onclick='editStock({$stock->id});'>Edit</button>";
-                $deleteBtn = "<button class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#stockDeleteModal' onclick='deleteStock({$stock->id});'>Delete</button>";
+                $deleteBtn = auth()->user()->is_admin ? "<button class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#stockDeleteModal' onclick='deleteStock({$stock->id});'>Delete</button>" : "";
                 return "{$viewBtn} {$editBtn} {$deleteBtn}";
             })
             ->toJson();
@@ -45,7 +46,7 @@ class StockService {
             'name' => $data['name'],
             'receipt_no' => $data['receipt_no'],
         ]);
-        if($data['receipt_upload']) {
+        if($data['receipt_upload'] != null) {
             $stock->clearMediaCollection('receipt');
             $stock->addMedia($data['receipt_upload'])->toMediaCollection('receipt');
         }

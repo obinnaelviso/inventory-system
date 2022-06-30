@@ -19,7 +19,7 @@ class StatusSeeder extends Seeder
         if (!$status) {
             $statuses = [
                 ['title' => 'active', 'colour' => 'primary,success'],
-                ['title' => 'inactive', 'colour' => 'muted,secondary,light'],
+                ['title' => 'unavailable', 'colour' => 'warning,muted'],
                 ['title' => 'pending', 'colour' => 'info,warning'],
                 ['title' => 'cancelled', 'colour' => 'warning'],
                 ['title' => 'processing', 'colour' => 'info'],

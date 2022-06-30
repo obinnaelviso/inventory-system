@@ -15,13 +15,18 @@
     <!--end breadcrumb-->
 
     <div class="page-class">
-        <livewire:admin.stock-items :stock="$stock" />
+        <livewire:admin.stock-items :stock="$stock"/>
     </div>
 </div>
 @endsection
 
 @push('plugins')
 <link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
+<style>
+    .search-item:hover {
+        background-color: ghostwhite;
+    }
+</style>
 @livewireStyles
 @endpush
 
@@ -42,7 +47,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <livewire:admin.stock-items-form :stock="$stock" />
+                <livewire:admin.stock-items-form :stock="$stock" :units="$units" :categories="$categories" />
             </div>
         </div>
         </div>

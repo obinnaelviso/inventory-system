@@ -1,4 +1,4 @@
-var requestsDataTable, requestDeleteModal, currentRequestId, submitRequestModal;
+var requestsDataTable, requestDeleteModal, markAsCompletedModal, currentRequestId, submitRequestModal;
 const requestCreateBtn = $('.requestCreateBtn')
 const requestFormModal = new bootstrap.Modal(document.getElementById('requestFormModal'))
 const dateOptions = {
@@ -32,9 +32,14 @@ function deleteRequest() {
     Livewire.emit('deleteRequest', currentRequestId)
 }
 
+function markAsCompleted() {
+    Livewire.emit('markAsCompleted', currentRequestId)
+}
+
 function initializeTable() {
     const requestsDataUrl = $('#requestsTable').data('get-url');
     requestDeleteModal = $('#requestDeleteModal').length ? new bootstrap.Modal(document.getElementById('requestDeleteModal')) : null
+    markAsCompletedModal = new bootstrap.Modal(document.getElementById('markAsCompletedModal'))
 
     requestsDataTable = $('#requestsTable').DataTable({
         serverSide: true,
@@ -72,14 +77,22 @@ $(() => {
     Livewire.on('requestCreated', () => {
         requestsDataTable.ajax.reload()
         requestFormModal.hide()
+        alertify.success('Request created successfully!')
     })
     Livewire.on('requestUpdated', () => {
         requestsDataTable.ajax.reload()
         requestFormModal.hide()
+        alertify.success('Request updated successfully!')
     })
     Livewire.on('requestDeleted', () => {
         requestsDataTable.ajax.reload()
         requestDeleteModal.hide()
+        alertify.success('Request deleted successfully!')
+    })
+    Livewire.on('requestCompleted', () => {
+        requestsDataTable.ajax.reload()
+        markAsCompletedModal.hide()
+        alertify.success('Request completed successfully!')
     })
 
 

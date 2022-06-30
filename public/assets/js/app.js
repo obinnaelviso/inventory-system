@@ -1,3 +1,4 @@
+
 $(function() {
     "use strict";
 
@@ -8,6 +9,8 @@ $(function() {
             'X-CSRF-TOKEN': token,
         },
     })
+
+    alertify.set('notifier','position', 'top-right');
 
     if ($('.header-message-list').length) {
         new PerfectScrollbar(".header-message-list")

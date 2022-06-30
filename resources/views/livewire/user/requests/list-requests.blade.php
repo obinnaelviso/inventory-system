@@ -13,8 +13,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="text-{{ $request->status->colour[0] }} ms-auto">
-                            @if($request->status_id == status_processing_id())
+                        <div class="text-{{ $request->status->colour[0] }} ms-auto" title="{{ $request->status->title }}">
+                            @if(($request->status_id == status_processing_id()) || ($request->status_id == status_completed_id()))
                                 <i class="bx bx-check-circle font-35"></i>
                             @else
                                 <i class="bx bx-message-error font-35"></i>

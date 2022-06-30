@@ -11,12 +11,14 @@ class StockItemsForm extends Component
 {
     public $stock;
     public $stockItem;
+    public $units = [];
+    public $categories = [];
 
     public $item;
     public $description;
     public $qty;
-    public $unit;
-    public $category;
+    public $unit = "";
+    public $category = "";
 
     protected $rules = [
         'item' => 'required',
@@ -30,7 +32,6 @@ class StockItemsForm extends Component
         'editStockItem',
         'newStockItem' => 'resetInput',
         'deleteStockItem',
-        'markAsCompleted',
         'addItemToProducts'
     ];
 
@@ -73,20 +74,13 @@ class StockItemsForm extends Component
         $this->emit('stockItemDeleted');
     }
 
-    public function markAsCompleted(StockItem $stockItem, StockItemService $stockItemService) {
-        $stockItemService->update($stockItem, ['status_id' => status_completed_id()]);
-        $this->emit('stockItemCompleted');
-    }
+    // public function markAsCompleted(StockItem $stockItem, StockItemService $stockItemService) {
+    //     $stockItemService->update($stockItem, ['status_id' => status_completed_id()]);
+    //     $this->emit('stockItemCompleted');
+    // }
 
     public function addItemToProducts(StockItem $stockItem, StockItemService $stockItemService, ProductService $productService) {
-        $productService->create(auth()->user(), [
-            'item' => $stockItem->item,
-            'description' => $stockItem->description,
-            'qty' => $stockItem->qty,
-            'unit' => $stockItem->unit,
-            'category' => $stockItem->category,
-            'status_id' => status_active_id()
-        ]);
+        $productService->updateFromStocks($stockItem);
         $stockItemService->update($stockItem, ['status_id' => status_completed_id()]);
         $this->emit('stockItemAddedToProducts');
     }

@@ -7,7 +7,7 @@
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
-        <div class="col-sm-23">
+        <div class="col-sm-12">
             <label for="dept">Department</label>
             <input type="text" class="form-control @error('dept') is-invalid @enderror" wire:model.lazy='dept' id="dept">
             @error('dept')

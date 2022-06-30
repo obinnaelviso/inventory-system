@@ -20,11 +20,11 @@ class StockItemService {
                 return "<span class='badge rounded-pill bg-{$item->status->colour[0]}'>{$item->status->title}</span>";
             })
             ->addColumn('action', function($item) {
-                $markCompleteBtn = $item->is_completed ? '' : "<button class='btn btn-success btn-sm' onclick='selectItem({$item->id});' title='Mark as Complete' data-bs-toggle='modal' data-bs-target='#markAsCompletedModal'><i class='bx bx-check-square me-0'></i></button>";
-                $addToProducts = $item->is_completed ? '' : "<button class='btn btn-warning btn-sm' onclick='selectItem({$item->id});' title='Add to Products' data-bs-toggle='modal' data-bs-target='#addToProductsModal'><i class='bx bx-plus me-0'></i></button>";
-                $editBtn = "<button class='btn btn-info btn-sm' data-bs-toggle='modal' data-bs-target='#stockItemFormModal' onclick='editStockItem({$item->id});'>Edit</button>";
-                $deleteBtn = "<button class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#stockItemDeleteModal' onclick='selectItem({$item->id});'>Delete</button>";
-                return "{$markCompleteBtn} {$addToProducts} {$editBtn} {$deleteBtn}";
+                // $markCompleteBtn = $item->is_completed ? '' : "<button class='btn btn-success btn-sm' onclick='selectItem({$item->id});' title='Mark as Complete' data-bs-toggle='modal' data-bs-target='#markAsCompletedModal'><i class='bx bx-check-square me-0'></i></button>";
+                $addToProducts = (auth()->user()->is_user || $item->is_completed) ? '' : "<button class='btn btn-warning btn-sm' onclick='selectItem({$item->id});' title='Add item to products' data-bs-toggle='modal' data-bs-target='#addToProductsModal'><i class='bx bx-plus me-0'></i></button>";
+                $editBtn = $item->is_completed ? '' : "<button class='btn btn-info btn-sm' data-bs-toggle='modal' data-bs-target='#stockItemFormModal' onclick='editStockItem({$item->id});'>Edit</button>";
+                $deleteBtn = auth()->user()->is_admin ? "<button class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#stockItemDeleteModal' onclick='selectItem({$item->id});'>Delete</button>" : '';
+                return "{$addToProducts} {$editBtn} {$deleteBtn}";
             })
             ->rawColumns(['action', 'status'])
             ->toJson();

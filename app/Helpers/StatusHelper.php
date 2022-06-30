@@ -6,8 +6,8 @@ function status_active_id() {
     return Status::where('title', 'active')->first()->id;
 }
 
-function status_inactive_id() {
-    return Status::where('title', 'inactive')->first()->id;
+function status_unavailable_id() {
+    return Status::where('title', 'unavailable')->first()->id;
 }
 
 function status_blocked_id() {

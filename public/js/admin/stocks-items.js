@@ -1,7 +1,8 @@
 var stockItemsDataTable, stockItemDeleteModal, markAsCompletedModal, addToProductsModal, currentStockItemId, submitRequestModal;
 const stockItemCreateBtn = $('.stockItemCreateBtn')
 const stockItemFormModal = new bootstrap.Modal(document.getElementById('stockItemFormModal'))
-
+var productSearchUrl = "/products/search";
+var searchTimeout = undefined;
 // Add StockItem
 function addStockItem() {
     $('#stockItemFormModalTitle').html('Add New Item')
@@ -13,6 +14,12 @@ function addStockItem() {
 function editStockItem(id) {
     $('#stockItemFormModalTitle').html('Update Item')
     Livewire.emit('editStockItem', id)
+}
+
+function selectSearchValue(itemValue) {
+    $('#item-code').val(itemValue);
+    $("#search-items-card").hide();
+    $("#item-code")[0].dispatchEvent(new Event('input'));
 }
 
 function selectItem(id) {
@@ -89,6 +96,41 @@ $(() => {
     Livewire.on('stockItemAddedToProducts', () => {
         stockItemsDataTable.ajax.reload()
         addToProductsModal.hide()
+    })
+    $('input').on('click', function() {
+        $("#search-items-card").hide();
+    })
+    $('#item-code').on('keyup', function() {
+        let searchString = $(this).val();
+        if(searchTimeout != undefined) {
+            clearTimeout(searchTimeout);
+        }
+       searchTimeout = setTimeout(() => {
+            if (searchString.length > 0) {
+                $.ajax({
+                    url: productSearchUrl,
+                    data: {
+                        q: searchString
+                    },
+                    success: function(response) {
+                        if (response.data.length > 0) {
+                            $("#search-items-card").show()
+                            $("#search-items-body").html("")
+                            response.data.forEach(element => {
+                                $("#search-items-body").append(`
+                                    <button class="btn w-100 text-start border-bottom search-item" type="button" onclick="selectSearchValue('${element.item}')">${element.item}</button>
+                                `);
+                            });
+                        } else {
+                            $("#search-items-card").hide();
+                        }
+                    }
+                })
+            } else {
+                $("#search-items-card").hide();
+            }
+        }, 500);
+
     })
 
 

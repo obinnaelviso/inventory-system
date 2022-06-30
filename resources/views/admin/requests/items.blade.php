@@ -22,6 +22,11 @@
 
 @push('plugins')
 <link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
+<style>
+    .search-item:hover {
+        background-color: ghostwhite;
+    }
+</style>
 @livewireStyles
 @endpush
 
@@ -42,7 +47,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <livewire:admin.request-items-form :request="$request" />
+                <livewire:admin.request-items-form :request="$request" :units="$units"/>
             </div>
         </div>
         </div>
@@ -81,19 +86,19 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="addToProductsModal" tabindex="-1" aria-labelledby="addToProductsModalLabel" aria-hidden="true">
+    <div class="modal fade" id="processRequestItemModal" tabindex="-1" aria-labelledby="processRequestItemModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                <h5 class="modal-title" id="addToProductsModalTitle">Add To Products</h5>
+                <h5 class="modal-title" id="processRequestItemModalTitle">Process Request Item</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to add this item to products?
+                    Are you sure you want to process this request item?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Not yet</button>
-                    <button type="button" class="btn btn-success btn-sm" id="modalMarkAsCompleteBtn" onclick="addItemToProducts();">Yes</button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Not yet</button>
+                    <button type="button" class="btn btn-success btn-sm" id="modalMarkAsCompleteBtn" onclick="processRequestItem();">Yes</button>
                 </div>
             </div>
         </div>

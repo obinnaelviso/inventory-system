@@ -1,42 +1,49 @@
-var requestItemsDataTable, requestItemDeleteModal, markAsCompletedModal, addToProductsModal, currentrequestItemId, submitRequestModal;
+var requestItemsDataTable, requestItemDeleteModal, markAsCompletedModal, processRequestItemModal, currentRequestItemId, submitRequestModal;
 const requestItemCreateBtn = $('.requestItemCreateBtn')
 const requestItemFormModal = new bootstrap.Modal(document.getElementById('requestItemFormModal'))
-
+var productSearchUrl;
+var searchTimeout = undefined;
 // Add requestItem
-function addrequestItem() {
+function addRequestItem() {
     $('#requestItemFormModalTitle').html('Add New Item')
     requestItemFormModal.show();
-    Livewire.emit('newrequestItem')
+    Livewire.emit('newRequestItem')
 }
 
 // Edit request Item
 function editRequestItem(id) {
     $('#requestItemFormModalTitle').html('Update Item')
-    Livewire.emit('editrequestItem', id)
+    Livewire.emit('editRequestItem', id)
+}
+
+function selectSearchValue(itemValue) {
+    $('#item-code').val(itemValue);
+    $("#search-items-card").hide();
+    $("#item-code")[0].dispatchEvent(new Event('input'));
 }
 
 function selectItem(id) {
-    currentrequestItemId = id
+    currentRequestItemId = id
 }
 
 function deleteItem() {
     Livewire.emit('deleteRequestItem', currentRequestItemId)
 }
 
-function markAsCompleted() {
-    Livewire.emit('markAsCompleted', currentRequestItemId)
+function processRequestItem() {
+    Livewire.emit('processRequestItem', currentRequestItemId)
 }
 
 function initializeTable() {
     const requestItemsDataUrl = $('#requestItemsTable').data('get-url');
     requestItemDeleteModal = new bootstrap.Modal(document.getElementById('requestItemDeleteModal'))
     markAsCompletedModal = new bootstrap.Modal(document.getElementById('markAsCompletedModal'))
-    addToProductsModal = new bootstrap.Modal(document.getElementById('addToProductsModal'))
+    processRequestItemModal = new bootstrap.Modal(document.getElementById('processRequestItemModal'))
+    productSearchUrl = $('#requestItemsTable').data('search-url');
 
     requestItemsDataTable = $('#requestItemsTable').DataTable({
         serverSide: true,
         processing: true,
-        retrieve: true,
         ajax: {
             url: requestItemsDataUrl,
             type: 'POST',
@@ -49,6 +56,7 @@ function initializeTable() {
             { name: 'description', data:'description' },
             { name: 'qty', data:'qty', searchable: false, orderable: false },
             { name: 'unit', data:'unit', searchable: false, orderable: false },
+            { name: 'status', data:'status', searchable: false, orderable: false },
             { name: 'action', data:'action', searchable: false, orderable: false },
         ],
         buttons: ['copy', 'excel', 'pdf', 'print'],
@@ -61,32 +69,70 @@ function initializeTable() {
 $(() => {
     initializeTable();
 
-    requestItemCreateBtn.on('click', addrequestItem);
+    requestItemCreateBtn.on('click', addRequestItem);
 
     // Listen to livewire request item events
     Livewire.on('requestItemCreated', () => {
         requestItemsDataTable.ajax.reload()
         requestItemFormModal.hide()
+        alertify.success('Item created successfully')
     })
     Livewire.on('requestItemUpdated', () => {
         requestItemsDataTable.ajax.reload()
         requestItemFormModal.hide()
+        alertify.success('Item updated successfully')
     })
     Livewire.on('requestItemDeleted', () => {
         requestItemsDataTable.ajax.reload()
         requestItemDeleteModal.hide()
+        alertify.success("Item deleted successfully!")
     })
-    Livewire.on('requestItemCompleted', () => {
+    Livewire.on('requestItemProcessed', () => {
         requestItemsDataTable.ajax.reload()
-        markAsCompletedModal.hide()
+        processRequestItemModal.hide()
+        alertify.success("Item processed successfully!")
     })
-    Livewire.on('requestItemAddedToProducts', () => {
+    Livewire.on('requestItemNotAvailable', () => {
         requestItemsDataTable.ajax.reload()
-        addToProductsModal.hide()
+        processRequestItemModal.hide()
+        alertify.error('Item is not available!')
     })
-
-
     window.addEventListener('initialize-table', () => {
         initializeTable();
+    })
+    $('input').on('click', function() {
+        $("#search-items-card").hide();
+    })
+    $('#item-code').on('keyup', function() {
+        let searchString = $(this).val();
+        if(searchTimeout != undefined) {
+            clearTimeout(searchTimeout);
+        }
+       searchTimeout = setTimeout(() => {
+            if (searchString.length > 0) {
+                $.ajax({
+                    url: productSearchUrl,
+                    data: {
+                        q: searchString
+                    },
+                    success: function(response) {
+                        if (response.data.length > 0) {
+                            $("#search-items-card").show()
+                            $("#search-items-body").html("")
+                            response.data.forEach(element => {
+                                $("#search-items-body").append(`
+                                    <button class="btn w-100 text-start border-bottom search-item" type="button" onclick="selectSearchValue('${element.item}')">${element.item}</button>
+                                `);
+                            });
+                        } else {
+                            $("#search-items-card").hide();
+                        }
+                    }
+                })
+            } else {
+                $("#search-items-card").hide();
+            }
+        }, 500);
+
     })
 })

@@ -28,4 +28,5 @@ Route::middleware([
 
 Route::prefix('products')->group(function () {
     Route::post('/', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/search', [ProductController::class, 'search'])->name('products.search');
 });

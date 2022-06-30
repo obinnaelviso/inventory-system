@@ -21,8 +21,23 @@ function deleteProduct() {
 
 function initializeTable () {
     const productsDataUrl = $('#productsTable').data('get-url');
+    const isUser = $('#productsTable').data('user');
     productFormModal = new bootstrap.Modal(document.getElementById('productFormModal'))
     productDeleteModal = new bootstrap.Modal(document.getElementById('productDeleteModal'))
+
+    let tableColumns = [
+        {name: 'id', data: 'id', searchable: false, orderable: true},
+        { name: 'item', data:'item' },
+        { name: 'description', data:'description' },
+        { name: 'category', data:'category', searchable: true, orderable: true },
+        { name: 'qty', data:'qty', searchable: false, orderable: true },
+        { name: 'unit', data:'unit', searchable: false, orderable: false }
+    ];
+
+    if (!isUser) {
+        tableColumns.push({ name: 'action', data:'action', searchable: false, orderable: false })
+    }
+
 
     productsDataTable = $('#productsTable').DataTable({
         serverSide: true,
@@ -33,15 +48,7 @@ function initializeTable () {
         },
         searchDelay: 500,
         order: [0, 'asc'],
-        columns: [
-            {name: 'id', data: 'id', searchable: false, orderable: true},
-            { name: 'item', data:'item' },
-            { name: 'description', data:'description' },
-            { name: 'category', data:'category', searchable: true, orderable: true },
-            { name: 'qty', data:'qty', searchable: false, orderable: true },
-            { name: 'unit', data:'unit', searchable: false, orderable: false },
-            { name: 'action', data:'action', searchable: false, orderable: false },
-        ],
+        columns: tableColumns,
         buttons: [ 'copy', 'excel', 'pdf', 'print'],
         initComplete: function() {
             this.api().buttons().container().addClass(' mt-3')

@@ -20,7 +20,7 @@
     </a>
 </li>
 <li>
-    <a href="{{ route('user.products.index') }}">
+    <a href="{{ route('user.purchasing.index') }}">
         <div class="parent-icon"><i class='bx bx-extension'></i>
         </div>
         <div class="menu-title">Products</div>

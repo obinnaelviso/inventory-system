@@ -14,12 +14,16 @@ class RequestItemService {
             ->addColumn('created_at', function($requestItem) {
                 return $requestItem->created_at->toDateTimeString();
             })
-            ->addColumn('action', function($requestItem) {
-                $editBtn = "<button class='btn btn-info btn-sm' data-bs-toggle='modal' data-bs-target='#requestItemFormModal' onclick='editRequestItem({$requestItem->id});'>Edit</button>";
-                $deleteBtn = "<button class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#requestItemDeleteModal' onclick='deleteRequestItem({$requestItem->id});'>Delete</button>";
-                return "{$editBtn} {$deleteBtn}";
+            ->addColumn('status', function($item) {
+                return "<span class='badge rounded-pill bg-{$item->status->colour[0]}'>{$item->status->title}</span>";
             })
-            ->addIndexColumn()
+            ->addColumn('action', function($requestItem) {
+                $processButton = $requestItem->is_completed ? '' : "<button class='btn btn-success btn-sm' data-bs-toggle='modal' title='Process request item' data-bs-target='#processRequestItemModal' onclick='selectItem({$requestItem->id});'><i class='bx bx-check-square me-0'></i></button>";
+                $editBtn = "<button class='btn btn-info btn-sm' data-bs-toggle='modal' data-bs-target='#requestItemFormModal' onclick='editRequestItem({$requestItem->id});'>Edit</button>";
+                $deleteBtn = "<button class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#requestItemDeleteModal' onclick='selectItem({$requestItem->id});'>Delete</button>";
+                return "{$processButton} {$editBtn} {$deleteBtn}";
+            })
+            ->rawColumns(['action', 'status'])
             ->toJson();
     }
 

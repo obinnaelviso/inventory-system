@@ -18,7 +18,6 @@ class StocksForm extends Component
     public $receipt_upload;
 
     protected $listeners = [
-        'updateStock',
         'editStock',
         'newStock' => 'resetInput',
         'deleteStock'
@@ -27,7 +26,7 @@ class StocksForm extends Component
     protected $rules = [
         'name' => 'required',
         'receipt_no' => 'required',
-        'receipt_upload' => 'required'
+        'receipt_upload' => 'nullable'
     ];
 
     public function render()
@@ -36,6 +35,7 @@ class StocksForm extends Component
     }
 
     public function editStock(Stock $stock) {
+        $this->stock = $stock;
         $this->name = $stock->name;
         $this->receipt_no = $stock->receipt_no;
         $this->receipt_upload = $stock->receipt_upload;
@@ -58,14 +58,6 @@ class StocksForm extends Component
         $this->receipt_no = null;
         $this->receipt_upload = null;
     }
-
-    public function updateStock(Stock $stock) {
-        $this->stock = $stock;
-        $this->name = $stock->name;
-        $this->receipt_no = $stock->receipt_no;
-        $this->receipt_upload = $stock->receipt_upload;
-    }
-
     public function deleteStock(Stock $stock, StockService $stockService) {
         $stockService->delete($stock);
         $this->emit('stockDeleted');

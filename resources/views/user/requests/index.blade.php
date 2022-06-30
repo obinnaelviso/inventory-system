@@ -23,6 +23,11 @@
 @push('plugins')
 <link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
 <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker.min.css'>
+<style>
+    .search-item:hover {
+        background-color: ghostwhite;
+    }
+</style>
 @livewireStyles
 @endpush
 

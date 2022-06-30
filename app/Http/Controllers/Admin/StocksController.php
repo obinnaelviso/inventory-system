@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Stock;
+use App\Models\Unit;
 use App\Services\StockItemService;
 use App\Services\StockService;
 use Illuminate\Http\Request;
@@ -30,7 +32,9 @@ class StocksController extends Controller
     }
 
     public function items(Stock $stock) {
-        return view('admin.stocks.items', compact('stock'));
+        $categories = Category::all();
+        $units = Unit::all();
+        return view('admin.stocks.items', compact('stock', 'categories', 'units'));
     }
 
     public function itemsData(Stock $stock) {

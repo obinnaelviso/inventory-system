@@ -1,8 +1,11 @@
 <div>
     <form class="row g-3" wire:submit.prevent='submitForm'>
-        <div class="col-sm-12">
+        <div class="col-sm-12 position-relative">
             <label for="item">Item Code</label>
-            <input type="text" class="form-control @error('item') is-invalid @enderror" wire:model.lazy='item' id="item">
+            <input type="text" id="item-code" class="form-control @error('item') is-invalid @enderror" wire:model='item' id="item" autocomplete="off">
+            <div class="card position-absolute w-100" id="search-items-card" style="display: none; max-width: 250px; overflow-y: auto">
+                <div class="card-body" id="search-items-body"></div>
+            </div>
             @error('item')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -23,14 +26,24 @@
         </div>
         <div class="col-sm-12">
             <label for="unit">Unit</label>
-            <input type="text" class="form-control @error('unit') is-invalid @enderror" wire:model.lazy='unit' id="unit">
+            <select name="units" id="units" class="form-control @error('unit') is-invalid @enderror" wire:model="unit">
+                <option value="" selected>Select Unit</option>
+                @foreach ($units as $unit)
+                    <option value="{{ $unit->title }}">{{ $unit->title }}</option>
+                @endforeach
+            </select>
             @error('unit')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>
         <div class="col-sm-12">
             <label for="category">Category</label>
-            <input type="text" class="form-control @error('category') is-invalid @enderror" wire:model.lazy='category' id="category">
+            <select name="categories" id="categories" class="form-control @error('category') is-invalid @enderror" wire:model="category">
+                <option value="" selected>Select Category</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->title }}">{{ $category->title }}</option>
+                @endforeach
+            </select>
             @error('category')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
