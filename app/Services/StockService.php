@@ -37,7 +37,9 @@ class StockService {
             'receipt_no' => $data['receipt_no'],
             'status_id' => $data['status_id'],
         ]);
-        $stock->addMedia($data['receipt_upload'])->toMediaCollection('receipt');
+        if ($data['receipt_upload'] != null) {
+            $stock->addMedia($data['receipt_upload'])->toMediaCollection('receipt');
+        }
         return $stock;
     }
 

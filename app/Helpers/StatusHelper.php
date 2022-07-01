@@ -41,3 +41,7 @@ function status_rejected_id() {
 function status_processing_id() {
     return Status::where('title', 'processing')->first()->id;
 }
+
+function status_not_available_id() {
+    return Status::where('title', 'not available')->first()->id;
+}
