@@ -17,6 +17,11 @@ class RequestItem extends Model
         'status_id'
     ];
 
+    public function request()
+    {
+        return $this->belongsTo(Request::class);
+    }
+
     public function status() {
         return $this->belongsTo(Status::class);
     }

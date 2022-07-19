@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\Admin\StocksController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PurchasingController;
+use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\RequestsController;
 use App\Http\Controllers\Admin\UnitController;
 use Illuminate\Support\Facades\Route;
@@ -47,4 +48,10 @@ Route::prefix('categories')->group(function() {
 Route::prefix('units')->group(function() {
     Route::get('/', [UnitController::class, 'index'])->name('units.index');
     Route::post('/data', [UnitController::class, 'data'])->name('units.data');
+});
+
+Route::prefix('reports')->group(function() {
+    Route::get('/accomplished-requests', [ReportsController::class, 'accomplishedRequests'])->name('reports.accomplished-requests');
+    Route::get('/pending-requests', [ReportsController::class, 'pendingRequests'])->name('reports.pending-requests');
+    Route::get('/low-stocks', [ReportsController::class, 'lowStocks'])->name('reports.low-stocks');
 });
