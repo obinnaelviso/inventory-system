@@ -24,7 +24,7 @@ class DepartmentForm extends Component
     ];
     public function render()
     {
-        return view('livewire.admin.Department-form');
+        return view('livewire.admin.department-form');
     }
 
     public function resetInput()

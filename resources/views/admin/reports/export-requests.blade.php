@@ -51,7 +51,7 @@
     <style type="text/css" media="print">
         @page {
             size: landscape;
-            margin: 0;
+            margin: 20px;
         }
     </style>
 @endpush
@@ -77,7 +77,7 @@
             element.style.height = '100%';
 
             var opt = {
-                margin: 0,
+                margin: 0.1,
                 filename: "{{ str_replace(' ', '-', strtolower($title)) }}" + new Date().getTime() + '.pdf',
                 image: {
                     type: 'jpeg',
