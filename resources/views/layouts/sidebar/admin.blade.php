@@ -44,6 +44,13 @@
     </a>
 </li>
 <li>
+    <a href="{{ route('admin.departments.index') }}">
+        <div class="parent-icon"><i class='bx bx-list-ol'></i>
+        </div>
+        <div class="menu-title">Departments</div>
+    </a>
+</li>
+<li>
     <a href="javascript:;" class="has-arrow">
         <div class="parent-icon"><i class="bx bx-note"></i>
         </div>

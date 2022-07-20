@@ -3,7 +3,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table id="unitsTable" data-get-url="{{ route('admin.units.data') }}" class="table">
+                    <table id="departmentsTable" data-get-url="{{ route('admin.departments.data') }}" class="table">
                         <thead>
                             <tr>
                                 <th>Title</th>

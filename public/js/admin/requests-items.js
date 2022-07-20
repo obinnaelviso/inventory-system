@@ -16,10 +16,10 @@ function editRequestItem(id) {
     Livewire.emit('editRequestItem', id)
 }
 
-function selectSearchValue(itemValue) {
-    $('#item-code').val(itemValue);
+function selectSearchValue(item) {
+    Livewire.emit('inputFromSearch', item);
     $("#search-items-card").hide();
-    $("#item-code")[0].dispatchEvent(new Event('input'));
+    $('#qty').focus();
 }
 
 function selectItem(id) {
@@ -121,7 +121,7 @@ $(() => {
                             $("#search-items-body").html("")
                             response.data.forEach(element => {
                                 $("#search-items-body").append(`
-                                    <button class="btn w-100 text-start border-bottom search-item" type="button" onclick="selectSearchValue('${element.item}')">${element.item}</button>
+                                    <button class="btn w-100 text-start border-bottom search-item" type="button" onclick='selectSearchValue(${JSON.stringify(element)})'>${element.item} - ${element.description}</button>
                                 `);
                             });
                         } else {

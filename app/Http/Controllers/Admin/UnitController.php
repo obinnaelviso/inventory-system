@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class UnitController extends Controller
 {
-    public $unitController;
+    public $unitService;
 
     public function __construct(UnitService $unitService) {
         $this->unitService = $unitService;

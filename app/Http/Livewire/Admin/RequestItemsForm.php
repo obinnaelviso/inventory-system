@@ -29,7 +29,8 @@ class RequestItemsForm extends Component
         'editRequestItem',
         'newRequestItem' => 'resetInput',
         'deleteRequestItem',
-        'processRequestItem'
+        'processRequestItem',
+        'inputFromSearch'
     ];
 
     public function render()
@@ -37,7 +38,8 @@ class RequestItemsForm extends Component
         return view('livewire.admin.request-items-form');
     }
 
-    public function editRequestItem(RequestItem $requestItem) {
+    public function editRequestItem(RequestItem $requestItem)
+    {
         $this->requestItem = $requestItem;
         $this->item = $requestItem->item;
         $this->description = $requestItem->description;
@@ -45,7 +47,8 @@ class RequestItemsForm extends Component
         $this->unit = $requestItem->unit;
     }
 
-    public function submitForm(RequestItemService $requestItemService) {
+    public function submitForm(RequestItemService $requestItemService)
+    {
         $validatedData = $this->validate();
         if ($this->requestItem) {
             $requestItemService->update($this->requestItem, $validatedData);
@@ -57,19 +60,22 @@ class RequestItemsForm extends Component
         $this->resetInput();
     }
 
-    public function deleteRequestItem(RequestItem $requestItem, RequestItemService $requestItemService) {
+    public function deleteRequestItem(RequestItem $requestItem, RequestItemService $requestItemService)
+    {
         $requestItemService->delete($requestItem);
         $this->emit('requestItemDeleted');
     }
 
-    public function resetInput() {
+    public function resetInput()
+    {
         $this->item = null;
         $this->description = null;
         $this->qty = null;
         $this->unit = null;
     }
 
-    public function processRequestItem(RequestItem $requestItem, RequestItemService $requestItemService, ProductService $productService) {
+    public function processRequestItem(RequestItem $requestItem, RequestItemService $requestItemService, ProductService $productService)
+    {
         $requestAvailable = $productService->updateFromRequests($requestItem);
         if ($requestAvailable) {
             $requestItemService->update($requestItem, ['status_id' => status_completed_id()]);
@@ -78,5 +84,12 @@ class RequestItemsForm extends Component
             $requestItemService->update($requestItem, ['status_id' => status_pending_id()]);
             $this->emit('requestItemNotAvailable');
         }
+    }
+
+    public function inputFromSearch($requestItem)
+    {
+        $this->item = $requestItem['item'];
+        $this->description = $requestItem['description'];
+        $this->unit = $requestItem['unit'];
     }
 }

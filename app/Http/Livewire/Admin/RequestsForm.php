@@ -8,6 +8,8 @@ use Livewire\Component;
 
 class RequestsForm extends Component
 {
+    public $depts;
+
     public $name;
     public $dept;
     public $date;
