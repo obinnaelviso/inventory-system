@@ -1,12 +1,12 @@
 @extends('layouts.print')
-@section('title', $title)
+@section('title', 'Low Stocks')
 @section('content')
 
     <div class="page-content" id="page-content" style="font-size: 18px">
         <div class="row mb-3 border-bottom">
             <div class="col-6 mt-5 p-3">
                 <h4>
-                    {{ $title }}
+                    @yield('title')
                 </h4>
             </div>
             <div class="col-6 text-end pt-5">
@@ -17,28 +17,22 @@
             <div class="col-12 p-2">
                 <table class="table table-bordered" id="reportsTable">
                     <thead>
-                        <th>User</th>
-                        <th>Name</th>
-                        <th>Dept</th>
                         <th>Item</th>
                         <th>Description</th>
                         <th>Quantity</th>
                         <th>Unit</th>
-                        <th>Date</th>
+                        <th>Category</th>
                         <th>Creation Date</th>
                     </thead>
                     <tbody>
-                        @foreach ($requests as $request)
+                        @foreach ($products as $product)
                             <tr>
-                                <td>{{ $request->request->user->name }}</td>
-                                <td>{{ $request->request->name }}</td>
-                                <td>{{ $request->request->dept }}</td>
-                                <td>{{ $request->item }}</td>
-                                <td>{{ $request->description }}</td>
-                                <td>{{ $request->qty }}</td>
-                                <td>{{ $request->unit }}</td>
-                                <td>{{ $request->request->date }}</td>
-                                <td>{{ $request->created_at }}</td>
+                                <td>{{ $product->item }}</td>
+                                <td>{{ $product->description }}</td>
+                                <td>{{ $product->qty }}</td>
+                                <td>{{ $product->unit }}</td>
+                                <td>{{ $product->category }}</td>
+                                <td>{{ $product->created_at }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -78,7 +72,7 @@
 
             var opt = {
                 margin: 0.1,
-                filename: "{{ str_replace(' ', '-', strtolower($title)) }}" + new Date().getTime() + '.pdf',
+                filename: "low-stocks" + new Date().getTime() + '.pdf',
                 image: {
                     type: 'jpeg',
                     quality: 0.98

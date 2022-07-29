@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Unit;
 use App\Services\ProductService;
 use Illuminate\Http\Request;
 
 class PurchasingController extends Controller
 {
-    public function __construct(ProductService $pr) {
-
-    }
-    public function index() {
-        return view('admin.purchasing.index');
+    public function index()
+    {
+        $categories = Category::all();
+        $units = Unit::all();
+        return view('admin.purchasing.index', compact('categories', 'units'));
     }
 
     public function data(Request $request) {

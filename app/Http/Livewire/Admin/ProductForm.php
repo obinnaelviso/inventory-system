@@ -15,6 +15,9 @@ class ProductForm extends Component
     public $qty;
     public $unit;
     public $category;
+    
+    public $units = [];
+    public $categories = [];
 
     protected $rules = [
         'item' => 'required',

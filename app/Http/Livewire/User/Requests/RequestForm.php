@@ -14,6 +14,8 @@ class RequestForm extends Component
     public $date;
     public $request;
 
+    public $depts = [];
+
     protected $listeners = ['updateRequest', 'editRequest'];
 
     protected $rules = [
@@ -35,7 +37,8 @@ class RequestForm extends Component
         $this->date = $request->date;
     }
 
-    public function submitForm(RequestService $requestService) {
+    public function submitForm(RequestService $requestService)
+    {
         $validatedData = $this->validate();
         if ($this->request) {
             $requestService->update($this->request, $validatedData);
@@ -47,13 +50,15 @@ class RequestForm extends Component
         $this->resetInput();
     }
 
-    public function resetInput() {
+    public function resetInput()
+    {
         $this->name = null;
         $this->dept = null;
         $this->date = null;
     }
 
-    public function updateRequest(Request $request) {
+    public function updateRequest(Request $request)
+    {
         $this->request = $request;
         $this->name = $request->name;
         $this->dept = $request->dept;

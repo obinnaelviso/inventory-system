@@ -3,7 +3,7 @@
         <div class="col-sm-12 position-relative">
             <label for="item">Item Code</label>
             <input type="text" id="item-code" class="form-control @error('item') is-invalid @enderror" wire:model='item' id="item" autocomplete="off">
-            <div class="card position-absolute w-100" id="search-items-card" style="display: none; max-width: 250px; overflow-y: auto">
+            <div class="card position-absolute w-100" id="search-items-card" style="display: none; max-width: 450px; overflow-y: auto">
                 <div class="card-body" id="search-items-body"></div>
             </div>
             @error('item')

@@ -32,7 +32,8 @@ class StockItemsForm extends Component
         'editStockItem',
         'newStockItem' => 'resetInput',
         'deleteStockItem',
-        'addItemToProducts'
+        'addItemToProducts',
+        'inputFromSearch'
     ];
 
     public function render()
@@ -40,7 +41,8 @@ class StockItemsForm extends Component
         return view('livewire.admin.stock-items-form');
     }
 
-    public function editStockItem(StockItem $stockItem) {
+    public function editStockItem(StockItem $stockItem)
+    {
         $this->stockItem = $stockItem;
         $this->item = $stockItem->item;
         $this->description = $stockItem->description;
@@ -49,7 +51,8 @@ class StockItemsForm extends Component
         $this->category = $stockItem->category;
     }
 
-    public function submitForm(StockItemService $stockItemService) {
+    public function submitForm(StockItemService $stockItemService)
+    {
         $validatedData = $this->validate();
         if ($this->stockItem) {
             $stockItemService->update($this->stockItem, $validatedData);
@@ -61,7 +64,8 @@ class StockItemsForm extends Component
         $this->resetInput();
     }
 
-    public function resetInput() {
+    public function resetInput()
+    {
         $this->item = null;
         $this->description = null;
         $this->qty = null;
@@ -69,7 +73,8 @@ class StockItemsForm extends Component
         $this->category = null;
     }
 
-    public function deleteStockItem(StockItem $stockItem, StockItemService $stockItemService) {
+    public function deleteStockItem(StockItem $stockItem, StockItemService $stockItemService)
+    {
         $stockItemService->delete($stockItem);
         $this->emit('stockItemDeleted');
     }
@@ -79,9 +84,18 @@ class StockItemsForm extends Component
     //     $this->emit('stockItemCompleted');
     // }
 
-    public function addItemToProducts(StockItem $stockItem, StockItemService $stockItemService, ProductService $productService) {
+    public function addItemToProducts(StockItem $stockItem, StockItemService $stockItemService, ProductService $productService)
+    {
         $productService->updateFromStocks($stockItem);
         $stockItemService->update($stockItem, ['status_id' => status_completed_id()]);
         $this->emit('stockItemAddedToProducts');
+    }
+
+    public function inputFromSearch($requestItem)
+    {
+        $this->item = $requestItem['item'];
+        $this->description = $requestItem['description'];
+        $this->unit = $requestItem['unit'];
+        $this->category = $requestItem['category'];
     }
 }

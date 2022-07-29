@@ -2,7 +2,8 @@ var requestsDataTable, requestDeleteModal, markAsCompletedModal, currentRequestI
 const requestCreateBtn = $('.requestCreateBtn')
 const requestFormModal = new bootstrap.Modal(document.getElementById('requestFormModal'))
 const dateOptions = {
-    'format' : 'mm/dd/yyyy'
+    'format': 'mm/dd/yyyy',
+    'updateOnBlur': true,
 }
 const requestDateInput = document.getElementById('requestDate')
 const requestDateDp = new Datepicker(requestDateInput, dateOptions)

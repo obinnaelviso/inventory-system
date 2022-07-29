@@ -1,9 +1,9 @@
 <!--sidebar wrapper -->
 <div class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header">
-        <div>
+        {{-- <div>
             <img src="{{ asset('assets/images/logo-icon.png') }}" class="logo-icon" alt="logo icon">
-        </div>
+        </div> --}}
         <div>
             <h5 class="logo-text">{{ config('app.name') }}</h5>
         </div>

@@ -16,10 +16,10 @@ function editStockItem(id) {
     Livewire.emit('editStockItem', id)
 }
 
-function selectSearchValue(itemValue) {
-    $('#item-code').val(itemValue);
+function selectSearchValue(item) {
+    Livewire.emit('inputFromSearch', item);
     $("#search-items-card").hide();
-    $("#item-code")[0].dispatchEvent(new Event('input'));
+    $('#qty').focus();
 }
 
 function selectItem(id) {
@@ -136,5 +136,40 @@ $(() => {
 
     window.addEventListener('initialize-table', () => {
         initializeTable();
+    })
+    $('input').on('click', function() {
+        $("#search-items-card").hide();
+    })
+    $('#item-code').on('keyup', function() {
+        let searchString = $(this).val();
+        if(searchTimeout != undefined) {
+            clearTimeout(searchTimeout);
+        }
+       searchTimeout = setTimeout(() => {
+            if (searchString.length > 0) {
+                $.ajax({
+                    url: productSearchUrl,
+                    data: {
+                        q: searchString
+                    },
+                    success: function(response) {
+                        if (response.data.length > 0) {
+                            $("#search-items-card").show()
+                            $("#search-items-body").html("")
+                            response.data.forEach(element => {
+                                $("#search-items-body").append(`
+                                    <button class="btn w-100 text-start border-bottom search-item" type="button" onclick='selectSearchValue(${JSON.stringify(element)})'>${element.item} - ${element.description}</button>
+                                `);
+                            });
+                        } else {
+                            $("#search-items-card").hide();
+                        }
+                    }
+                })
+            } else {
+                $("#search-items-card").hide();
+            }
+        }, 500);
+
     })
 })

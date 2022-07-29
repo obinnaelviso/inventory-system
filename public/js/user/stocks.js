@@ -38,12 +38,12 @@ function initializeTable() {
         columnDefs: [{
             targets: 3,
             render: function(data, type, row, meta) {
-                return `<a href="${data}" class="btn btn-primary btn-sm" download>
+                return data ? `<a href="${data}" class="btn btn-primary btn-sm" download>
                             <i class="bx bx-download me-0"></i>
                         </a>
                         <a href="${data}" class="btn btn-info btn-sm" target="_blank" title="View">
                             <i class="bx bx-show me-0"></i>
-                        </a>`
+                        </a>` : "";
             }
         }],
         buttons: ['copy', 'excel', 'pdf', 'print'],

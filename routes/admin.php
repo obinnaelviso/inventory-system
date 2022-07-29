@@ -60,4 +60,5 @@ Route::prefix('reports')->group(function () {
     Route::get('/pending-requests', [ReportsController::class, 'pendingRequests'])->name('reports.pending-requests');
     Route::get('/low-stocks', [ReportsController::class, 'lowStocks'])->name('reports.low-stocks');
     Route::get('/export', [ReportsController::class, 'exportRequests'])->name('requests.generate-report');
+    Route::get('/low-stocks/export', [ReportsController::class, 'exportLowStocks'])->name('low-stocks.generate-report');
 });
