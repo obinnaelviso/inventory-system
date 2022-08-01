@@ -80,22 +80,27 @@ $(() => {
     Livewire.on('stockItemCreated', () => {
         stockItemsDataTable.ajax.reload()
         stockItemFormModal.hide()
+        alertify.success('Item created successfully!')
     })
     Livewire.on('stockItemUpdated', () => {
         stockItemsDataTable.ajax.reload()
         stockItemFormModal.hide()
+        alertify.success('Item updated successfully!')
     })
     Livewire.on('stockItemDeleted', () => {
         stockItemsDataTable.ajax.reload()
         stockItemDeleteModal.hide()
+        alertify.success('Item deleted successfully!')
     })
     Livewire.on('stockItemCompleted', () => {
         stockItemsDataTable.ajax.reload()
         markAsCompletedModal.hide()
+        alertify.success('Item completed successfully!')
     })
     Livewire.on('stockItemAddedToProducts', () => {
         stockItemsDataTable.ajax.reload()
         addToProductsModal.hide()
+        alertify.success('Item added to products successfully!')
     })
     $('input').on('click', function() {
         $("#search-items-card").hide();

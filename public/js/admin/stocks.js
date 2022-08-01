@@ -74,14 +74,17 @@ $(() => {
     Livewire.on('stockCreated', () => {
         stocksDataTable.ajax.reload()
         stockFormModal.hide()
+        alertify.success('New stock created successfully!')
     })
     Livewire.on('stockUpdated', () => {
         stocksDataTable.ajax.reload()
         stockFormModal.hide()
+        alertify.success('Stock updated successfully!')
     })
     Livewire.on('stockDeleted', () => {
         stocksDataTable.ajax.reload()
         stockDeleteModal.hide()
+        alertify.success('Stock deleted successfully!')
     })
 
 

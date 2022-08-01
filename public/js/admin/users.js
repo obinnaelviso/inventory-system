@@ -61,10 +61,12 @@ $(() => {
     // Reload table when user created,updated
     Livewire.on('userCreated', () => {
         usersDataTable.ajax.reload();
+        alertify.success('New user created successfully!')
     })
 
     Livewire.on('userUpdated', () => {
         usersDataTable.ajax.reload();
         userFormModal.hide()
+        alertify.success('User updated successfully!')
     })
 })
