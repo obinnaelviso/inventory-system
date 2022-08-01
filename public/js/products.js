@@ -61,14 +61,17 @@ $(() => {
     // Listen to livewire request item events
     Livewire.on('productCreated', () => {
         productsDataTable.ajax.reload()
+        alertify.success('Product created successfully!')
     })
     Livewire.on('productUpdated', () => {
         productsDataTable.ajax.reload()
         productFormModal.hide()
+        alertify.success('Product updated successfully!')
     })
     Livewire.on('productDeleted', () => {
         productsDataTable.ajax.reload()
         productDeleteModal.hide()
+        alertify.success('Product deleted successfully!')
     })
 
     window.addEventListener('initialize-table', () => {
