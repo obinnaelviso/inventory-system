@@ -67,10 +67,12 @@ $(() => {
     Livewire.on('stockItemCreated', () => {
         stockItemsDataTable.ajax.reload()
         stockItemFormModal.hide()
+        alertify.success('Item created successfully!')
     })
     Livewire.on('stockItemUpdated', () => {
         stockItemsDataTable.ajax.reload()
         stockItemFormModal.hide()
+        alertify.success('Item updated successfully!')
     })
     $('input').on('click', function() {
         $("#search-items-card").hide();

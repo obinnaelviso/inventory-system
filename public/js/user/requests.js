@@ -49,11 +49,14 @@ $(() => {
     // Listen to livewire event
     Livewire.on('requestCreated', () => {
         requestFormModal.hide()
+        alertify.success('Request created successfully!')
     })
     Livewire.on('requestUpdated', () => {
         requestFormModal.hide()
+        alertify.success('Request updated successfully!')
     })
     Livewire.on('requestDeleted', () => {
         deleteRequestModal.hide()
+        alertify.success('Request deleted successfully!')
     })
 })

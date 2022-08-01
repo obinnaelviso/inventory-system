@@ -69,17 +69,21 @@ $(() => {
     // Listen to livewire request item events
     Livewire.on('requestItemCreated', () => {
         requestItemsDataTable.ajax.reload()
+        alertify.success('Item created successfully!')
     })
     Livewire.on('requestItemUpdated', () => {
         requestItemsDataTable.ajax.reload()
         requestItemFormModal.hide()
+        alertify.success('Item updated successfully!')
     })
     Livewire.on('requestItemDeleted', () => {
         requestItemsDataTable.ajax.reload()
         requestItemDeleteModal.hide()
+        alertify.success('Item deleted successfully!')
     })
     Livewire.on('requestStatusUpdated', () => {
         submitRequestModal.hide()
+        alertify.success('Request status updated successfully!')
     })
     $('input').on('click', function() {
         $("#search-items-card").hide();
