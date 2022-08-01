@@ -114,10 +114,10 @@
 @endsection
 
 @push('plugins')
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker.min.css'>
+    <link rel='stylesheet' href="{{ asset('assets/plugins/vanillajs-datepicker/css/datepicker.min.css') }}" />
 @endpush
 @push('js')
-    <script src='https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js'></script>
+    <script src="{{ asset('assets/plugins/vanillajs-datepicker/js/datepicker-full.min.js') }}"></script>
     <script>
         const dateOptions = {
             'format': 'mm/dd/yyyy'

@@ -22,7 +22,7 @@
 
 @push('plugins')
     <link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker.min.css'>
+    <link rel='stylesheet' href="{{ asset('assets/plugins/vanillajs-datepicker/css/datepicker.min.css') }}" />
     <style>
         .search-item:hover {
             background-color: ghostwhite;
@@ -35,7 +35,7 @@
     @livewireScripts
     <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
-    <script src='https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker-full.min.js'></script>
+    <script src="{{ asset('assets/plugins/vanillajs-datepicker/js/datepicker-full.min.js') }}"></script>
     <script src="{{ asset('js/user/requests.js') }}"></script>
     <script src="{{ asset('js/user/request-items.js') }}"></script>
 @endpush
