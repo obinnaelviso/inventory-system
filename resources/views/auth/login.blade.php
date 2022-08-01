@@ -10,7 +10,8 @@
                         <img src="{{ asset('assets/images/logo-img.png') }}" width="180" alt="" />
                     </div> --}}
                         <div class="mb-4 text-center">
-                            <h4 class="logo-text">{{ config('app.name') }}</h4>
+                            {{-- <h4 class="logo-text">{{ config('app.name') }}</h4> --}}
+                            <img class="img-fluid" src="{{ asset('assets/images/logo.jpg') }}" width="200" />
                         </div>
                         <div class="card">
                             <div class="card-body">

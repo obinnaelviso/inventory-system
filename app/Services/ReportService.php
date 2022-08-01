@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\Product;
 use App\Models\RequestItem;
-use Carbon\Carbon;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 class ReportService
@@ -19,12 +19,16 @@ class ReportService
             $requestItems = RequestItem::query();
         }
         if ($startDate != "") {
-            $startDate = new Carbon($startDate);
-            $requestItems = $requestItems->where('created_at', '>=', $startDate);
+            $startDate = Carbon::parse($startDate)->format('m/d/Y');
+            $requestItems = $requestItems->whereHas('request', function (Builder $builder) use ($startDate) {
+                return $builder->where('date', '>=', $startDate);
+            });
         }
         if ($endDate != "") {
-            $endDate = new Carbon($endDate);
-            $requestItems = $requestItems->where('created_at', '<=', $endDate);
+            $endDate = Carbon::parse($endDate)->format('m/d/Y');
+            $requestItems = $requestItems->whereHas('request', function (Builder $builder) use ($endDate) {
+                return $builder->where('date', '<=', $endDate);
+            });
         }
         $requestItems = $requestItems->where('status_id', status_completed_id())->get();
         return $requestItems;

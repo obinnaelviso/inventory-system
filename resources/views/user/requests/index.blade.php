@@ -15,7 +15,7 @@
         <!--end breadcrumb-->
 
         <div class="page-class">
-            <livewire:user.requests.index />
+            <livewire:user.requests.index :units="$units" />
         </div>
     </div>
 @endsection
@@ -50,7 +50,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <livewire:user.requests.request-form :depts="$depts" />
+                    <livewire:user.requests.request-form :depts="$depts" :units="$units" />
                 </div>
             </div>
         </div>

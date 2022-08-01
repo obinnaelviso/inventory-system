@@ -9,6 +9,7 @@ use Livewire\Component;
 class Index extends Component
 {
     public $step = RequestStep::LIST_REQUESTS;
+    public $units;
 
     // Hold request ID
     public $r;

@@ -60,7 +60,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <livewire:user.requests.list-request-items-form :request="$request" />
+                    <livewire:user.requests.list-request-items-form :request="$request" :units="$units" />
                 </div>
             </div>
         </div>

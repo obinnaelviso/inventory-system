@@ -10,6 +10,7 @@ use Livewire\Component;
 class ListRequestItems extends Component
 {
     public $request;
+    public $units;
 
     public $listeners = [
         'initializeTable' => '$refresh',

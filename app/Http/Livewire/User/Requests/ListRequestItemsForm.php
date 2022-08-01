@@ -11,6 +11,7 @@ class ListRequestItemsForm extends Component
 {
     public Request $request;
     public $requestItem;
+    public $units;
 
     public $item;
     public $description;
@@ -24,7 +25,7 @@ class ListRequestItemsForm extends Component
         'unit' => 'nullable|string',
     ];
 
-    protected $listeners = ['newRequestItem', 'editRequestItem', 'deleteRequestItem'];
+    protected $listeners = ['newRequestItem', 'editRequestItem', 'deleteRequestItem', 'inputFromSearch'];
 
     public function render()
     {
@@ -60,7 +61,8 @@ class ListRequestItemsForm extends Component
         $this->resetInput();
     }
 
-    public function editRequestItem(RequestItem $requestItem) {
+    public function editRequestItem(RequestItem $requestItem)
+    {
         $this->requestItem = $requestItem;
         $this->item = $requestItem->item;
         $this->description = $requestItem->description;
@@ -72,5 +74,12 @@ class ListRequestItemsForm extends Component
     {
         $requestItemService->delete($requestItem);
         $this->emit('requestItemDeleted');
+    }
+
+    public function inputFromSearch($requestItem)
+    {
+        $this->item = $requestItem['item'];
+        $this->description = $requestItem['description'];
+        $this->unit = $requestItem['unit'];
     }
 }

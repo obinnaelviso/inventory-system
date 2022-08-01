@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
 
 class Request extends Model
 {
@@ -21,14 +22,23 @@ class Request extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function requestItems() {
+    public function requestItems()
+    {
         return $this->hasMany(RequestItem::class);
     }
-    public function status() {
+    public function status()
+    {
         return $this->belongsTo(Status::class);
     }
 
-    public function getIsCompletedAttribute() {
+    public function getIsCompletedAttribute()
+    {
         return $this->status_id == status_completed_id();
+    }
+
+    // get date
+    public function getFmDateAttribute()
+    {
+        return Carbon::parse($this->date)->format('m-d-Y');
     }
 }

@@ -29,7 +29,7 @@
     @livewireScripts
     <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="{{ asset('assets/plugins/alpinejs/alpinejs.min.js') }}" defer></script>
     <script src="{{ asset('js/user/stocks.js') }}"></script>
 @endpush
 
