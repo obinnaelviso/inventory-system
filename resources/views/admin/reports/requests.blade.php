@@ -86,7 +86,6 @@
                                         <th>Quantity</th>
                                         <th>Unit</th>
                                         <th>Date</th>
-                                        <th>Creation Date</th>
                                     </thead>
                                     <tbody>
                                         @foreach ($requests as $request)
@@ -99,7 +98,6 @@
                                                 <td>{{ $request->qty }}</td>
                                                 <td>{{ $request->unit }}</td>
                                                 <td>{{ $request->request->date }}</td>
-                                                <td>{{ $request->created_at }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>

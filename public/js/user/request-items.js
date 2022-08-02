@@ -13,6 +13,10 @@ function submitRequest() {
     Livewire.emit('submitRequest')
 }
 
+function selectItem(id) {
+    currentRequestItemId = id
+}
+
 // Edit Request Item
 function editRequestItem(id) {
     $('#requestItemFormModalTitle').html('Update Item')
@@ -82,7 +86,6 @@ $(() => {
         alertify.success('Item deleted successfully!')
     })
     Livewire.on('requestStatusUpdated', () => {
-        submitRequestModal.hide()
         alertify.success('Request status updated successfully!')
     })
     $('input').on('click', function() {
@@ -119,9 +122,5 @@ $(() => {
             }
         }, 500);
 
-    })
-
-    window.addEventListener('initialize-table', () => {
-        initializeTable();
     })
 })

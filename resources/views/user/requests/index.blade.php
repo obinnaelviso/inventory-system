@@ -15,7 +15,7 @@
         <!--end breadcrumb-->
 
         <div class="page-class">
-            <livewire:user.requests.index :units="$units" />
+            <livewire:user.requests.list-requests />
         </div>
     </div>
 @endsection
@@ -23,11 +23,6 @@
 @push('plugins')
     <link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.min.css') }}" rel="stylesheet" />
     <link rel='stylesheet' href="{{ asset('assets/plugins/vanillajs-datepicker/css/datepicker.min.css') }}" />
-    <style>
-        .search-item:hover {
-            background-color: ghostwhite;
-        }
-    </style>
     @livewireStyles
 @endpush
 
@@ -36,8 +31,7 @@
     <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/vanillajs-datepicker/js/datepicker-full.min.js') }}"></script>
-    <script src="{{ asset('js/user/requests.js') }}"></script>
-    <script src="{{ asset('js/user/request-items.js') }}"></script>
+    <script src="{{ asset('js/user/requests.js') }}?774"></script>
 @endpush
 
 @push('modals')
@@ -60,7 +54,7 @@
         <div class="modal-dialog modal-sm">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteUserModalTitle">Delete User</h5>
+                    <h5 class="modal-title" id="deleteUserModalTitle">Delete Request</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

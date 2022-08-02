@@ -30,7 +30,8 @@ function selectRequest(id) {
 }
 
 function deleteRequest() {
-    Livewire.emit('deleteRequest', currentRequestId)
+    // Livewire.emit('deleteRequest', currentRequestId)
+    Livewire.emit('requestCreated');
 }
 
 function markAsCompleted() {
@@ -56,8 +57,8 @@ function initializeTable() {
             { name: 'user', data: 'user' },
             { name: 'name', data: 'name' },
             { name: 'dept', data: 'dept', searchable: true, orderable: true },
-            { name: 'date', data: 'date', searchable: true, orderable: false },
-            { name: 'status', data: 'status', searchable: false, orderable: false },
+            { name: 'date', data: 'date', searchable: true, orderable: true },
+            { name: 'status_id', data: 'status_styled', searchable: false, orderable: true },
             { name: 'action', data: 'action', searchable: false, orderable: false },
         ],
         buttons: ['copy', 'excel', 'pdf', 'print'],
@@ -94,10 +95,5 @@ $(() => {
         requestsDataTable.ajax.reload()
         markAsCompletedModal.hide()
         alertify.success('Request completed successfully!')
-    })
-
-
-    window.addEventListener('initialize-table', () => {
-        initializeTable();
     })
 })

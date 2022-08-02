@@ -5,6 +5,7 @@ namespace App\Http\Livewire\User\Requests;
 use App\Models\Request;
 use App\Models\RequestItem;
 use App\Services\RequestItemService;
+use App\Services\RequestService;
 use Livewire\Component;
 
 class ListRequestItemsForm extends Component
@@ -25,7 +26,7 @@ class ListRequestItemsForm extends Component
         'unit' => 'nullable|string',
     ];
 
-    protected $listeners = ['newRequestItem', 'editRequestItem', 'deleteRequestItem', 'inputFromSearch'];
+    protected $listeners = ['newRequestItem', 'submitRequest', 'editRequestItem', 'deleteRequestItem', 'inputFromSearch'];
 
     public function render()
     {
@@ -45,6 +46,13 @@ class ListRequestItemsForm extends Component
             $this->emit('requestItemCreated');
         }
         $this->resetInput();
+    }
+
+    public function submitRequest(RequestService $requestService)
+    {
+        $requestService->updateStatus($this->request->id, status_processing_id());
+        $this->emit('requestStatusUpdated');
+        return redirect()->route('user.requests.items', $this->request->id);
     }
 
     public function resetInput()

@@ -12,10 +12,21 @@ class RequestService
     {
     }
 
-    public function getAll(User $user, int $size = 25)
+    public function getAll()
     {
-        $requests = $user->requests()->latest()->paginate($size);
-        return $requests;
+        $requests = auth()->user()->requests;
+
+        return datatables($requests)
+            ->addColumn('status_styled', function ($request) {
+                return "<span class='badge rounded-pill bg-{$request->status->colour[0]}'>{$request->status->title}</span>";
+            })
+            ->addColumn('action', function ($request) {
+                $viewBtn = "<a href='/requests/{$request->id}' class='btn btn-info btn-sm' onclick='selectRequest({$request->id});' title='View Items'><i class='bx bx-show me-0'></i></a>";
+                $deleteBtn = ($request->status_id == status_pending_id()) ? "<button class='btn btn-danger btn-sm' onclick='openDeleteRequestModal({$request->id});' title='Delete'><i class='bx bx-trash me-0'></i></button>" : "";
+                return "{$viewBtn} {$deleteBtn}";
+            })
+            ->rawColumns(['action', 'status_styled'])
+            ->toJson();
     }
 
     public function getAllAdmin()
@@ -26,7 +37,7 @@ class RequestService
             ->addColumn('user', function ($request) {
                 return $request->user->name;
             })
-            ->addColumn('status', function ($request) {
+            ->addColumn('status_styled', function ($request) {
                 return "<span class='badge rounded-pill bg-{$request->status->colour[0]}'>{$request->status->title}</span>";
             })
             ->addColumn('action', function ($request) {
@@ -36,7 +47,7 @@ class RequestService
                 $deleteBtn = "<button class='btn btn-danger btn-sm' data-bs-toggle='modal' data-bs-target='#requestDeleteModal' onclick='selectRequest({$request->id});' title='Delete'><i class='bx bx-trash me-0'></i></button>";
                 return "{$viewBtn} {$markCompleteBtn} {$editBtn} {$deleteBtn}";
             })
-            ->rawColumns(['action', 'status'])
+            ->rawColumns(['action', 'status_styled'])
             ->toJson();
     }
 

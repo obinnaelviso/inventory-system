@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\User\Requests;
 
 use App\Models\Request;
-use App\Models\User;
 use App\Services\RequestService;
 use Livewire\Component;
 
@@ -16,7 +15,7 @@ class RequestForm extends Component
 
     public $depts = [];
 
-    protected $listeners = ['updateRequest', 'editRequest'];
+    protected $listeners = ['updateRequest', 'editRequest', 'deleteRequest'];
 
     protected $rules = [
         'name' => 'required',
@@ -63,5 +62,11 @@ class RequestForm extends Component
         $this->name = $request->name;
         $this->dept = $request->dept;
         $this->date = $request->date;
+    }
+
+    public function deleteRequest(Request $request, RequestService $requestService)
+    {
+        $requestService->delete($request);
+        $this->emit('requestDeleted');
     }
 }

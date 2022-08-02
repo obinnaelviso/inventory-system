@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Admin\PurchasingController;
-use App\Http\Controllers\User\DashboardController;
 use App\Http\Controllers\User\RequestController;
 use App\Http\Controllers\User\RequestItemController;
 use App\Http\Controllers\User\StocksController;
@@ -13,6 +12,8 @@ Route::prefix('purchasing')->group(function() {
 
 Route::prefix('requests')->group(function() {
     Route::get('/', [RequestController::class, 'index'])->name('requests.index');
+    Route::get('/{request}', [RequestController::class, 'items'])->name('requests.items');
+    Route::post('/data', [RequestController::class, 'data'])->name('requests.data');
 
     // Request items
     Route::prefix('items')->group(function() {
