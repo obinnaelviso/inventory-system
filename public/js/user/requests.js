@@ -16,6 +16,8 @@ function gotoRequest(id) {
     Livewire.emit('selectedRequest', id)
 }
 
+function selectItem(id) {}
+
 function openDeleteRequestModal(id) {
     currentRequestId = id
     deleteRequestModal.show()
@@ -62,10 +64,6 @@ function initializeRequestTable() {
 
 $(() => {
     initializeRequestTable();
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
 
     requestCreateBtn.on('click', () => {
         $('#requestFormModalTitle').html('Create New Request')

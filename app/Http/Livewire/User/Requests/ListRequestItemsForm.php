@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\User\Requests;
 
+use App\Models\Product;
 use App\Models\Request;
 use App\Models\RequestItem;
 use App\Services\RequestItemService;
@@ -84,10 +85,10 @@ class ListRequestItemsForm extends Component
         $this->emit('requestItemDeleted');
     }
 
-    public function inputFromSearch($requestItem)
+    public function inputFromSearch(Product $product)
     {
-        $this->item = $requestItem['item'];
-        $this->description = $requestItem['description'];
-        $this->unit = $requestItem['unit'];
+        $this->item = $product->item;
+        $this->description = $product->description;
+        $this->unit = $product->unit;
     }
 }

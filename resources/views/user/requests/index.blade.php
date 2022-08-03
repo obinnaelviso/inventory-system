@@ -31,7 +31,7 @@
     <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/vanillajs-datepicker/js/datepicker-full.min.js') }}"></script>
-    <script src="{{ asset('js/user/requests.js') }}?744"></script>
+    <script src="{{ asset('js/user/requests.js') }}?555"></script>
 @endpush
 
 @push('modals')

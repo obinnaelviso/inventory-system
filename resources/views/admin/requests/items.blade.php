@@ -35,7 +35,7 @@
     @livewireScripts
     <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('js/admin/requests-items.js') }}?8784"></script>
+    <script src="{{ asset('js/admin/requests-items.js') }}?555"></script>
 @endpush
 
 @push('modals')

@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+use App\Models\Product;
 use App\Models\RequestItem;
 use App\Services\ProductService;
 use App\Services\RequestItemService;
@@ -86,10 +87,10 @@ class RequestItemsForm extends Component
         }
     }
 
-    public function inputFromSearch($requestItem)
+    public function inputFromSearch(Product $product)
     {
-        $this->item = $requestItem['item'];
-        $this->description = $requestItem['description'];
-        $this->unit = $requestItem['unit'];
+        $this->item = $product->item;
+        $this->description = $product->description;
+        $this->unit = $product->unit;
     }
 }
