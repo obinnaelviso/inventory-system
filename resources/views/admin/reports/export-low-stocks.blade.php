@@ -22,7 +22,6 @@
                         <th>Quantity</th>
                         <th>Unit</th>
                         <th>Category</th>
-                        <th>Creation Date</th>
                     </thead>
                     <tbody>
                         @foreach ($products as $product)
@@ -32,7 +31,6 @@
                                 <td>{{ $product->qty }}</td>
                                 <td>{{ $product->unit }}</td>
                                 <td>{{ $product->category }}</td>
-                                <td>{{ $product->created_at }}</td>
                             </tr>
                         @endforeach
                     </tbody>

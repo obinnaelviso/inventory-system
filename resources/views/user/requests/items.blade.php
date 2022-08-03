@@ -6,11 +6,6 @@
         <!--breadcrumb-->
         <div class="page-breadcrumb d-none d-sm-flex align-items-center mb-3">
             <div class="breadcrumb-title pe-3">@yield('title')</div>
-            {{-- <div class="ms-auto">
-                <button class="btn btn-primary requestItemCreateBtn">
-                    <i class="bx bx-coin-stack"></i>Add New Item
-                </button>
-            </div> --}}
         </div>
         <!--end breadcrumb-->
 
@@ -89,7 +84,7 @@
     @livewireScripts
     <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('js/user/request-items.js') }}"></script>
+    <script src="{{ asset('js/user/request-items.js') }}?122123"></script>
 @endpush
 
 @push('modals')

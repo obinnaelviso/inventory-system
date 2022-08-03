@@ -21,7 +21,7 @@
                                 <i class='bx bx-message-error'></i> New Requests</a>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ route('admin.stocks.index') }}" class="btn btn-light">
+                            <a href="{{ route('admin.stocks.index') }}" class="btn btn-primary">
                                 <i class='bx bx-coin-stack'></i> New Stocks</a>
                         </div>
                         <div class="col-md-4">
