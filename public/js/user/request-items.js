@@ -61,7 +61,7 @@ function initializeTable () {
             { name: 'unit', data:'unit', searchable: false, orderable: false },
             { name: 'action', data:'action', searchable: false, orderable: false },
         ],
-        buttons: [ 'copy', 'excel', 'pdf', 'print'],
+        buttons: ['excel', 'pdf', 'print'],
         initComplete: function() {
             this.api().buttons().container().addClass(' mt-3')
             this.api().buttons().container().appendTo('#requestItemsTable_wrapper .col-md-6:eq(0)');

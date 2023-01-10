@@ -16,7 +16,7 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            <table id="requestItemsTable" data-search-url="{{ route('products.search') }}" data-get-url="{{ route('admin.requests.items-data', $request->id) }}" class="table">
+                            <table id="requestItemsTable" data-export-pdf-url="{{ route('admin.requests.items-export-pdf', $request->id) }}" data-print-url="{{ route('admin.requests.items-print', $request->id) }}" data-search-url="{{ route('products.search') }}" data-get-url="{{ route('admin.requests.items-data', $request->id) }}" class="table">
                                 <thead>
                                     <tr>
                                         <th width="5%">SL#</th>
@@ -25,7 +25,7 @@
                                         <th width="5%">Qty</th>
                                         <th width="5%">Unit</th>
                                         <th width="10%">Status</th>
-                                        <th width="30%">Action</th>
+                                        <th width="30%" class="notexport">Action</th>
                                     </tr>
                                 </thead>
                             </table>

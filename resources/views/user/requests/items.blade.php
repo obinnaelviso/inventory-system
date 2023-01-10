@@ -57,7 +57,7 @@
                                         <th width="35%">Description</th>
                                         <th width="5%">Qty</th>
                                         <th width="10%">Unit</th>
-                                        <th width="30%">Action</th>
+                                        <th width="30%" class="notexport">Action</th>
                                     </tr>
                                 </thead>
                             </table>

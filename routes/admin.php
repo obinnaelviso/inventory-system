@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DepartmentController;
-use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\Admin\StocksController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\PurchasingController;
@@ -30,6 +29,8 @@ Route::prefix('requests')->group(function () {
     Route::post('/data', [RequestsController::class, 'data'])->name('requests.data');
     Route::get('/{request}', [RequestsController::class, 'items'])->name('requests.items');
     Route::post('/{request}/items', [RequestsController::class, 'itemsData'])->name('requests.items-data');
+    Route::get('/{request}/export-pdf', [RequestsController::class, 'exportItems'])->name('requests.items-export-pdf');
+    Route::get('/{request}/print', [RequestsController::class, 'printItems'])->name('requests.items-print');
     Route::get('/{request}/search', [RequestsController::class, 'itemsSearch'])->name('requests.items-search');
 });
 

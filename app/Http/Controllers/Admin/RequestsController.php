@@ -9,6 +9,8 @@ use App\Models\Unit;
 use App\Services\RequestItemService;
 use App\Services\RequestService;
 use Illuminate\Http\Request as HttpRequest;
+use Illuminate\Support\Str;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RequestsController extends Controller
 {
@@ -43,5 +45,16 @@ class RequestsController extends Controller
     public function itemsData(Request $request)
     {
         return $this->requestItemService->getAll($request);
+    }
+
+    public function printItems(Request $request) {
+        $requestItems =  $request->requestItems;
+        return view('export.request-items-pdf', compact('requestItems', 'request'));
+    }
+
+    public function exportItems(Request $request) {
+        $requestItems =  $request->requestItems;
+        $pdf = Pdf::loadView('export.request-items-pdf', compact('requestItems', 'request'));
+        return $pdf->download(Str::slug($request->name.'-'.$request->dept.'-'.$request->id.'-request-items').'.pdf');
     }
 }

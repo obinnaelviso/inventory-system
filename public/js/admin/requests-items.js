@@ -2,6 +2,8 @@ var requestItemsDataTable, requestItemDeleteModal, markAsCompletedModal, process
 const requestItemCreateBtn = $('.requestItemCreateBtn')
 const requestItemFormModal = new bootstrap.Modal(document.getElementById('requestItemFormModal'))
 var productSearchUrl;
+var printUrl;
+var exportPdfUrl;
 var searchTimeout = undefined;
 // Add requestItem
 function addRequestItem() {
@@ -40,6 +42,8 @@ function initializeTable() {
     markAsCompletedModal = new bootstrap.Modal(document.getElementById('markAsCompletedModal'))
     processRequestItemModal = new bootstrap.Modal(document.getElementById('processRequestItemModal'))
     productSearchUrl = $('#requestItemsTable').data('search-url');
+    printUrl = $('#requestItemsTable').data('print-url')
+    exportPdfUrl = $('#requestItemsTable').data('export-pdf-url')
 
     requestItemsDataTable = $('#requestItemsTable').DataTable({
         serverSide: true,
@@ -59,7 +63,26 @@ function initializeTable() {
             { name: 'status', data:'status', searchable: false, orderable: false },
             { name: 'action', data:'action', searchable: false, orderable: false },
         ],
-        buttons: ['copy', 'excel', 'pdf', 'print'],
+        buttons: [
+            {
+                extend: 'excel',
+                exportOptions: {
+                    columns: ':not(.notexport)'
+                }
+            },
+            {
+                text: 'PDF',
+                action: function(e, dt, node, config) {
+                    window.location.href = exportPdfUrl
+                }
+            },
+            {
+                text: 'Print',
+                action: function(e, dt, node, config) {
+                    window.open(printUrl, "_blank").focus()
+                }
+            }
+        ],
         initComplete: function() {
             this.api().buttons().container().addClass(' mt-3')
             this.api().buttons().container().appendTo('#requestItemsTable_wrapper .col-md-6:eq(0)');

@@ -1,0 +1,26 @@
+1. Install Xampp with latest PHP 8.1
+2. After installing Xampp, go to C:\xampp\htdocs\ and paste your web files into a folder for example
+C:\xampp\htdocs\ckc-inventory where ckc-inventory contains your webfiles and not a folder.
+3. Start your xampp webserver.
+4. Go to phpmyadmin by typing http://localhost/phpmyadmin or in the xampp control panel you can click on
+Admin button on the MySQL row and it will open the phpmyadmin page
+5. Create a new database by clicking "New" on the left sidebar and call the database "ckc-inventory".
+6. After creating database, click on the database you just created and click on the import panel on the 
+navbar.
+7. Click on "browse" and your file explorer will open. Go to where your web files are at
+C:\xampp\htdocs\ckc-inventory and select the file "ckc-inventory.sql"
+8. Now scroll to the bottom of the page and untick enable foreign key checks to avoid problems. Then click
+on the Go button at the bottom of the page.
+9. Once the database has finished importing, visit http://localhost/ckc-inventory/public on your web address to access
+your website.
+10. If done correctly you can now access your website with the following login credentials
+For Users:
+email: johndoe@blues-inventory.test
+password: 1234567890
+
+For Admin:
+email: support@blues-inventory.test
+password: 1234567890
+
+To access your website through a custom domain name eg. "http://ckc-inventory.test" instead of "http://localhost/public/ckc-inventory" locally on your 
+computer, visit: https://divpusher.com/blog/how-to-run-laravel-on-windows-with-xampp/ and follow the steps.
